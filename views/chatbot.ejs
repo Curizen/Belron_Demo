@@ -65,7 +65,7 @@
     </style>
   </head>
   <body
-    class="bg-slate-900 font-[Segoe_UI] flex justify-end items-start h-screen m-0"
+    class="bg-slate-900 font-[Segoe_UI] flex justify-end items-start h-screen w-[99%]"
   >
       <div class="flex flex-col lg:flex-row w-full lg:w-[90%] h-full">
 
@@ -367,7 +367,7 @@
         </div>
 
         <!-- Chat Section -->
-        <div class="flex-1 flex flex-col bg-[#ffffff] h-full border border-gray-300">
+        <div class="flex-1 flex flex-col bg-[#ffffff] h-full border border-gray-300 w-full lg:w-2/3">
           
         <div class="w-full p-4">
           <div class="flex flex-col">
@@ -402,13 +402,8 @@
           <div
             class="flex justify-between items-center p-2 border-b border-[#dee2e6] bg-[#f8f9fa]"
           >
-            <div class="flex items-center gap-2.5">
-              <img
-                src="https://via.placeholder.com/40"
-                alt=""
-                class="rounded-full"
-              />
-              <div>
+            <div class="flex items-center justify-between w-full gap-2.5">
+              <div class="pl-4">
                 <h2 class="text-stone-600 font-bold text-[18px]">
                   Chatbot
                 </h2>
@@ -417,9 +412,16 @@
                   <span class="text-[11px] text-[#666]">Online</span>
                 </div>
               </div>
+              <div>
+              <button id="newChatBtn"
+                class="flex text-gray-400 text-xl p-2">
+                  <i class="fa-solid fa-pen-to-square"></i>
+              </button>
+
+              </div>
             </div>
             <div  class="relative">
-              <elevenlabs-convai class="fixed -top-6 -right-6" agent-id="agent_2901k4hn6hq5e59vhsxzrqz8w256"></elevenlabs-convai><script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript" style="background-color: red;"></script>
+              <elevenlabs-convai class="fixed -top-6 -right-4 md:right-0" agent-id="agent_2901k4hn6hq5e59vhsxzrqz8w256"></elevenlabs-convai><script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript" style="background-color: red;"></script>
             </div>
           </div>
 
@@ -428,19 +430,6 @@
             id="chatBox"
             class="flex-1 p-5 pl-8 overflow-y-auto flex flex-col gap-4 bg-[#fdfdfd]"
           >
-            <div
-              class="bg-[#e9ecef] text-gray-700 px-3.5 py-2.5 rounded-2xl border border-gray-300 max-w-[75%] text-[14px] leading-[1.5] font-semibold shadow-xl relative"
-            >
-              <div class="absolute -top-4 -left-4">
-                <img
-                  class="w-8 h-auto"
-                  src="https://cdn-icons-png.flaticon.com/512/8943/8943377.png"
-                  alt=""
-                />
-              </div>
-              Hello! Welcome to CarGlass. How can I help you today?<br />
-              <span class="text-[10px] text-[#777]">10:00 AM</span>
-            </div>
           </div>
 
           <!-- Typing Indicator -->
@@ -640,6 +629,61 @@
         updateLanguageUI();
       });
 
+      /*=========== welcome message =========== */
+      function createWelcomeMessage() {
+        const chatBox = document.getElementById("chatBox");
+
+        if (chatBox.children.length === 0) {
+
+          const messageDiv = document.createElement("div");
+          messageDiv.className = "bg-[#e9ecef] text-gray-700 px-3.5 py-2.5 rounded-2xl border border-gray-300 max-w-[75%] text-[14px] leading-[1.5] font-semibold shadow-xl relative";
+
+          const iconDiv = document.createElement("div");
+          iconDiv.className = "absolute -top-4 -left-4";
+
+          const iconImg = document.createElement("img");
+          iconImg.className = "w-8 h-auto";
+          iconImg.src = "https://cdn-icons-png.flaticon.com/512/8943/8943377.png"; // أيقونة ثابتة
+          iconImg.alt = "icon";
+
+          iconDiv.appendChild(iconImg);
+          messageDiv.appendChild(iconDiv);
+
+          const messageText = "Hello! Welcome to CarGlass. How can I help you today?";
+          messageDiv.innerHTML += messageText + "<br />";
+
+          const now = new Date();
+          const hours = now.getHours().toString().padStart(2, "0");
+          const minutes = now.getMinutes().toString().padStart(2, "0");
+          const timeSpan = document.createElement("span");
+          timeSpan.className = "text-[10px] text-[#777]";
+          timeSpan.innerText = `${hours}:${minutes}`;
+
+          messageDiv.appendChild(timeSpan);
+
+          chatBox.appendChild(messageDiv);
+        }
+      }
+
+      createWelcomeMessage();
+
+
+      /* ========== delete chat ========== */
+    const newChatBtn = document.getElementById("newChatBtn");
+
+    newChatBtn.addEventListener("click", () => {
+      localStorage.removeItem(CHAT_KEY);
+
+      const chatBox = document.getElementById("chatBox");
+      if (chatBox) {
+        chatBox.innerHTML = "";
+      }
+        createWelcomeMessage();
+      console.log("Chat storage fully cleared. No messages remain.");
+    });
+
+
+
       /* ===== Conversation Storage with 12h Expiry ===== */
       const CHAT_KEY = "chat_history"; // full conversation (all pairs)
       const EXPIRY_HOURS = 12;
@@ -821,7 +865,7 @@
 
           sidebar.classList.add("-translate-x-full");
           const historyForBackend = getLastPairs(5); 
-          fetch("/message", {
+          fetch("/analyze", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

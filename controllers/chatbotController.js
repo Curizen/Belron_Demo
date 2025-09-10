@@ -2,7 +2,7 @@ const ffmpeg = require("fluent-ffmpeg");
 const ffmpegPath = require("ffmpeg-static");
 ffmpeg.setFfmpegPath(ffmpegPath);
 const fs = require("fs");
-const axios = require("axios"); // ✅ add this
+const axios = require("axios"); 
 const openaiService = require("../services/openaiService");
 const { v4: uuidv4 } = require("uuid");
 
@@ -31,18 +31,15 @@ exports.sendVoiceMessage = async (req, res) => {
     const mp3Path = `./tmp/${audioFile.name.split(".")[0]}.mp3`;
     await convertWebmToMp3(webmPath, mp3Path);
 
-    // تحويل الصوت إلى نص باستخدام Whisper
     const transcription = await openaiService.transcribeAudio(mp3Path, "en");
     console.log("Transcription result:", transcription);
 
-    // الرد من البوت
     const botReply = await openaiService.getChatbotResponse(
       `You are a helpful assistant. The user said: "${transcription}" Reply in the same language.`
     );
 
     res.json({ reply: botReply, transcript: transcription, lang: "en-US" });
 
-    // حذف الملفات بعد المعالجة
     fs.unlinkSync(webmPath);
     fs.unlinkSync(mp3Path);
   } catch (err) {
@@ -56,7 +53,7 @@ exports.getChatbotPage = (req, res) => {
 
   if (!userUuid) {
     userUuid = uuidv4();
-    res.cookie("user_uuid", userUuid, { maxAge: 12 * 60 * 60 * 1000 }); // 12 hours
+    res.cookie("user_uuid", userUuid, { maxAge: 12 * 60 * 60 * 1000 });
   }
 
   res.render("chatbot", { userUuid });
@@ -65,80 +62,42 @@ exports.getChatbotPage = (req, res) => {
 exports.sendMessage = async (req, res) => {
   const userMessage = req.body.message;
   const lang = req.body.lang || "en";
-
-  let prompt = "";
-  if (lang === "en") {
-    prompt = `You are a helpful assistant. The user said: "${userMessage}" Reply in English.`;
-  } else if (lang === "de") {
-    prompt = `You are a helpful assistant. The user said: "${userMessage}" Reply in German.`;
-  } else if (lang === "ar") {
-    prompt = `أنت مساعد ذكي. المستخدم قال: "${userMessage}" أجب باللغة العربية.`;
-  }
+  const userId = req.body.id || uuidv4();
 
   try {
-    const botReply = await openaiService.getChatbotResponse(prompt);
-    res.json({ reply: botReply });
+    const n8nResponse = await axios.post(
+      "https://curizen.app.n8n.cloud/webhook/40d45577-cd94-4ce8-9e23-8b65eec82b3a",
+      {
+        query: userMessage,
+        id: userId,
+      }
+    );
+
+    const reply =
+      n8nResponse?.data?.output || n8nResponse?.data?.message?.content || "No content found";
+
+    res.json({ reply });
   } catch (error) {
-    console.error(error);
-    res.json({ reply: "An error occurred while communicating with OpenAI." });
+    console.error("Error forwarding to n8n:", error.message);
+    res.status(500).json({
+      reply: "Failed to get response from n8n",
+      error: error.message,
+    });
   }
 };
 
-// exports.analyzeMessage = async (req, res) => {
-//   const userMessage = req.body.message;
-//   const userUuid = req.cookies?.user_uuid || uuidv4(); // fallback just in case
-
-//   try {
-//     // Step 1: Classification prompt
-//     const classificationPrompt = `
-//       Classify the following user message as either "booking" or "chat".
-//       - "booking" means the user is trying to schedule, reschedule, confirm, cancel,
-//         or provide booking details (like name,email address, phone number, car type, license plate, appointment time).
-//       - "chat" means any other general question, company info, or unrelated topic.
-//       Respond with ONLY one word: booking or chat.
-
-//       Message: "${userMessage}"
-//     `;
-
-//     const intent = await openaiService.getChatbotResponse(classificationPrompt);
-//     const cleanIntent = intent.trim().toLowerCase();
-
-//     // Step 2: Redirect based on intent
-//     if (cleanIntent === "booking") {
-//       const bookingResponse = await axios.post(
-//         "https://curizen.app.n8n.cloud/webhook-test/ca9397b1-8604-4045-b25a-2906d897290d",
-//         {
-//           uuid: userUuid, // ✅ send the user's UUID
-//           query: userMessage,
-//         }
-//       );
-//       console.log(bookingResponse);
-//       return res.json({ type: "booking", reply: bookingResponse.data.output });
-//     } else {
-//       // Fallback to chat
-//       return exports.sendMessage(req, res);
-//     }
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).json({ reply: "Error while analyzing message." });
-//   }
-// };
-
 exports.analyzeMessage = async (req, res) => {
   const userMessage = req.body.message;
-  const userUuid = req.cookies?.user_uuid || uuidv4(); // keep uuid for 12h
+  const userUuid = req.cookies?.user_uuid || uuidv4(); 
 
   try {
-    // Forward everything to n8n
     const n8nResponse = await axios.post(
-      "https://curizen.app.n8n.cloud/webhook/ca9397b1-8604-4045-b25a-2906d897290d", // put your n8n webhook in .env
+      "https://curizen.app.n8n.cloud/webhook/40d45577-cd94-4ce8-9e23-8b65eec82b3a",
       {
-        uuid: userUuid,
+        id: userUuid,
         query: userMessage,
-        lang: req.body.lang || "en",
       }
     );
-    // console.log(n8nResponse);
 
     console.log(n8nResponse?.data?.output || "hi");
 

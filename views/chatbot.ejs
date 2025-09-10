@@ -9,7 +9,38 @@
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
     <style>
+      .triangle-yellow {
+        width: 0;
+        height: 0;
+        border-left: 20px solid transparent; 
+        border-bottom: 20px solid #facc15;  
+      }
+
+      .triangle-red {
+        width: 0;
+        height: 0;
+        border-left: 25px solid #f11717;
+        border-bottom: 20px solid transparent;
+      }
+
+      .square-yellow {
+        width: 20px;
+        height: 20px;
+        background-color: #facc15;        
+      }
+
+      .square-red {
+        width: 20px;
+        height: 20px;
+        background-color: #f11717;        
+      }
+
       @keyframes bounce {
         0%,
         80%,
@@ -34,337 +65,388 @@
     </style>
   </head>
   <body
-    class="bg-slate-900 font-[Segoe_UI] flex justify-end items-start min-h-screen m-0 p-6"
+    class="bg-slate-900 font-[Segoe_UI] flex justify-end items-start h-screen m-0"
   >
-  
-<elevenlabs-convai agent-id="agent_2901k4hn6hq5e59vhsxzrqz8w256"></elevenlabs-convai><script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript" style="background-color: red;"></script>    <div
-      class="w-[1000px] h-[720px] flex rounded-l-2xl  overflow-hidden shadow-[0_10px_25px_rgba(0,0,0,0.08)] bg-[#ffffff]"
-    >
-      <!-- Sidebar -->
-      <div class="w-[70px] bg-[#2f2f2f] flex flex-col items-center py-5 gap-7">
-        <img
-          src="https://semanadelseguro.inese.es/2024/wp-content/uploads/2022/12/carglass.png"
-          alt="Profile"
-          class="w-[50px] h-[50px] rounded-full border-2 border-[#ffffff]"
-        />
-        <button
-          class="text-[22px] text-[#e9ecef] p-2 rounded-lg hover:bg-[#444] hover:scale-110 transition"
-        >
-          🏠
-        </button>
-        <button
-          class="text-[22px] text-[#e9ecef] p-2 rounded-lg hover:bg-[#444] hover:scale-110 transition"
-        >
-          💬
-        </button>
-        <button
-          class="text-[22px] text-[#e9ecef] p-2 rounded-lg hover:bg-[#444] hover:scale-110 transition"
-        >
-          🔔
-        </button>
-        <button
-          class="text-[22px] text-[#e9ecef] p-2 rounded-lg hover:bg-[#444] hover:scale-110 transition"
-        >
-          ⚙️
-        </button>
-      </div>
+      <div class="flex flex-col lg:flex-row w-full lg:w-[90%] h-full">
 
-      <!-- Left Section (Services) -->
-      <div
-        class="w-[340px] border-r border-[#dee2e6] p-5 flex flex-col gap-4 bg-[#f8f9fa] overflow-y-auto"
-      >
-        <div class="flex justify-between items-center mb-3">
-          <div>
-            <div class="flex w-full justify-between">
-              <h2
-                id="servicesTitle"
-                class="text-stone-700 font-extrabold text-[20px] w-2/3 mb-1 tracking-tight"
-              >
-                Carglass Services
-              </h2>
-              <button
-                id="langToggle"
-                class="px-3 py-1 h-fit rounded bg-gray-300 hover:bg-gray-400 text-sm font-semibold"
-              >
-                DE
-              </button>
-            </div>
-            <p id="servicesDesc" class="text-gray-500 text-[14px]">
-              Choose the service you want to learn more about. Our expert team
-              is ready to guide you.
-            </p>
-          </div>
-        </div>
+        <!-- Left Section (Services) -->
+        <div id="sidebar"
+          class="w-[95%] md:w-1/2 lg:w-1/3 h-full fixed lg:relative z-[90000] flex 
+                transition-transform transform -translate-x-full lg:translate-x-0">
+          
+          <div class="flex items-center">
+            <div class="border p-5 flex flex-col gap-4 bg-[#f8f9fa] overflow-y-auto h-full">
+              <div class="hidden lg:flex flex-col">
+                <div class="flex items-center gap-0.5">
+                  <div class="triangle-yellow"></div>
 
-        <div class="flex flex-col gap-3 items-start" id="servicesContainer">
-          <button
-            class="service-btn w-full text-white border-b border-r border-red-700 rounded-xl py-2 shadow-xl bg-gradient-to-tl from-red-400 to-gray-400 transform transition duration-200 hover:scale-105 hover:shadow-2xl cursor-pointer flex items-center justify-between px-6"
-            data-service-en="Windshield Replacement"
-            data-service-de="Windschutzscheiben Austausch"
-          >
-            Windshield Replacement
-            <span class="material-icons">chevron_right</span>
-          </button>
-          <button
-            class="service-btn w-full text-white border-b border-r border-red-700 rounded-xl py-2 shadow-xl bg-gradient-to-tl from-red-400 to-gray-400 transform transition duration-200 hover:scale-105 hover:shadow-2xl cursor-pointer flex items-center justify-between px-6"
-            data-service-en="Chip Repair"
-            data-service-de="Steinschlag Reparatur"
-          >
-            Chip Repair <span class="material-icons">chevron_right</span>
-          </button>
-          <button
-            class="service-btn w-full text-white border-b border-r border-red-700 rounded-xl py-2 shadow-xl bg-gradient-to-tl from-red-400 to-gray-400 transform transition duration-200 hover:scale-105 hover:shadow-2xl cursor-pointer flex items-center justify-between px-6"
-            data-service-en="Rear Glass Replacement"
-            data-service-de="Heckscheibe Austausch"
-          >
-            Rear Glass Replacement
-            <span class="material-icons">chevron_right</span>
-          </button>
-          <button
-            class="service-btn w-full text-white border-b border-r border-red-700 rounded-xl py-2 shadow-xl bg-gradient-to-tl from-red-400 to-gray-400 transform transition duration-200 hover:scale-105 hover:shadow-2xl cursor-pointer flex items-center justify-between px-6"
-            data-service-en="Side Window Replacement"
-            data-service-de="Seitenscheibe Austausch"
-          >
-            Side Window Replacement
-            <span class="material-icons">chevron_right</span>
-          </button>
-          <button
-            class="service-btn w-full text-white border-b border-r border-red-700 rounded-xl py-2 shadow-xl bg-gradient-to-tl from-red-400 to-gray-400 transform transition duration-200 hover:scale-105 hover:shadow-2xl cursor-pointer flex items-center justify-between px-6"
-            data-service-en="Window Tinting"
-            data-service-de="Fenster Tönung"
-          >
-            Window Tinting <span class="material-icons">chevron_right</span>
-          </button>
-          <button
-            class="service-btn w-full text-white border-b border-r border-red-700 rounded-xl py-2 shadow-xl bg-gradient-to-tl from-red-400 to-gray-400 transform transition duration-200 hover:scale-105 hover:shadow-2xl cursor-pointer flex items-center justify-between px-6"
-            data-service-en="Calibration & ADAS Services"
-            data-service-de="Kalibrierung & ADAS Services"
-          >
-            Calibration & ADAS Services
-            <span class="material-icons">chevron_right</span>
-          </button>
-        </div>
-        <div>
-          <div class="mt-8 hidden">
-            <h2 class="text-stone-700 border-b px-2 font-bold mb-4 text-[18px]">
-              Select Car Body Type
-            </h2>
+                  <div class="square-yellow"></div>
 
-            <div class="flex flex-col gap-4 max-h-72 overflow-y-auto py-4">
-              <!-- Sedan -->
-              <label
-                class="flex items-center justify-between px-4 py-3 bg-gray-100 rounded-xl shadow hover:bg-gray-200 cursor-pointer transition"
-              >
-                <div class="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="car-body"
-                    value="Sedan"
-                    class="form-radio text-red-500"
-                  />
-                  <span class="material-icons text-red-500"
-                    >directions_car</span
+                  <div class="square-red"></div>
+                  <div class="square-red"></div>
+
+                  <div class="triangle-red"></div>
+                </div>
+                <p class="font-bold text-[#f11717] text-xl">
+                  CARGLASS
+                </p>
+              </div>
+              <div class="flex justify-between items-center mb-3">
+                <div>
+                  <div class="flex w-full justify-between">
+                    <h2
+                      id="servicesTitle"
+                      class="text-stone-700 font-extrabold text-[20px] w-2/3 mb-1 tracking-tight"
+                    >
+                      Carglass Services
+                    </h2>
+                    <button
+                      id="langToggle"
+                      class="px-3 py-1 h-fit rounded bg-gray-300 hover:bg-gray-400 text-sm font-semibold"
+                    >
+                      DE
+                    </button>
+                  </div>
+                  <p id="servicesDesc" class="text-gray-500 text-[14px]">
+                    Choose the service you want to learn more about. Our expert team
+                    is ready to guide you.
+                  </p>
+                </div>
+              </div>
+
+              <div class="flex flex-col gap-3 items-start" id="servicesContainer">
+                <button
+                  class="service-btn w-full text-white border-b border-r border-red-700 rounded-xl py-2 shadow-xl bg-gradient-to-tl from-red-400 to-gray-400 transform transition duration-200 hover:scale-105 hover:shadow-2xl cursor-pointer flex items-center justify-between px-6"
+                  data-service-en="Windshield Replacement"
+                  data-service-de="Windschutzscheiben Austausch"
+                >
+                  Windshield Replacement
+                  <span class="material-icons">chevron_right</span>
+                </button>
+                <button
+                  class="service-btn w-full text-white border-b border-r border-red-700 rounded-xl py-2 shadow-xl bg-gradient-to-tl from-red-400 to-gray-400 transform transition duration-200 hover:scale-105 hover:shadow-2xl cursor-pointer flex items-center justify-between px-6"
+                  data-service-en="Chip Repair"
+                  data-service-de="Steinschlag Reparatur"
+                >
+                  Chip Repair <span class="material-icons">chevron_right</span>
+                </button>
+                <button
+                  class="service-btn w-full text-white border-b border-r border-red-700 rounded-xl py-2 shadow-xl bg-gradient-to-tl from-red-400 to-gray-400 transform transition duration-200 hover:scale-105 hover:shadow-2xl cursor-pointer flex items-center justify-between px-6"
+                  data-service-en="Rear Glass Replacement"
+                  data-service-de="Heckscheibe Austausch"
+                >
+                  Rear Glass Replacement
+                  <span class="material-icons">chevron_right</span>
+                </button>
+                <button
+                  class="service-btn w-full text-white border-b border-r border-red-700 rounded-xl py-2 shadow-xl bg-gradient-to-tl from-red-400 to-gray-400 transform transition duration-200 hover:scale-105 hover:shadow-2xl cursor-pointer flex items-center justify-between px-6"
+                  data-service-en="Side Window Replacement"
+                  data-service-de="Seitenscheibe Austausch"
+                >
+                  Side Window Replacement
+                  <span class="material-icons">chevron_right</span>
+                </button>
+                <button
+                  class="service-btn w-full text-white border-b border-r border-red-700 rounded-xl py-2 shadow-xl bg-gradient-to-tl from-red-400 to-gray-400 transform transition duration-200 hover:scale-105 hover:shadow-2xl cursor-pointer flex items-center justify-between px-6"
+                  data-service-en="Window Tinting"
+                  data-service-de="Fenster Tönung"
+                >
+                  Window Tinting <span class="material-icons">chevron_right</span>
+                </button>
+                <button
+                  class="service-btn w-full text-white border-b border-r border-red-700 rounded-xl py-2 shadow-xl bg-gradient-to-tl from-red-400 to-gray-400 transform transition duration-200 hover:scale-105 hover:shadow-2xl cursor-pointer flex items-center justify-between px-6"
+                  data-service-en="Calibration & ADAS Services"
+                  data-service-de="Kalibrierung & ADAS Services"
+                >
+                  Calibration & ADAS Services
+                  <span class="material-icons">chevron_right</span>
+                </button>
+              </div>
+              <div>
+                <div class="mt-8 hidden">
+                  <h2 class="text-stone-700 border-b px-2 font-bold mb-4 text-[18px]">
+                    Select Car Body Type
+                  </h2>
+
+                  <div class="flex flex-col gap-4 max-h-72 overflow-y-auto py-4">
+                    <!-- Sedan -->
+                    <label
+                      class="flex items-center justify-between px-4 py-3 bg-gray-100 rounded-xl shadow hover:bg-gray-200 cursor-pointer transition"
+                    >
+                      <div class="flex items-center gap-3">
+                        <input
+                          type="radio"
+                          name="car-body"
+                          value="Sedan"
+                          class="form-radio text-red-500"
+                        />
+                        <span class="material-icons text-red-500"
+                          >directions_car</span
+                        >
+                        <span class="font-medium">Sedan</span>
+                      </div>
+                      <span class="material-icons text-gray-500">check_circle</span>
+                    </label>
+
+                    <!-- SUV -->
+                    <label
+                      class="flex items-center justify-between px-4 py-3 bg-gray-100 rounded-xl shadow hover:bg-gray-200 cursor-pointer transition"
+                    >
+                      <div class="flex items-center gap-3">
+                        <input
+                          type="radio"
+                          name="car-body"
+                          value="SUV"
+                          class="form-radio text-red-500"
+                        />
+                        <span class="material-icons text-red-500"
+                          >airport_shuttle</span
+                        >
+                        <span class="font-medium">SUV</span>
+                      </div>
+                      <span class="material-icons text-gray-500">check_circle</span>
+                    </label>
+
+                    <!-- Hatchback -->
+                    <label
+                      class="flex items-center justify-between px-4 py-3 bg-gray-100 rounded-xl shadow hover:bg-gray-200 cursor-pointer transition"
+                    >
+                      <div class="flex items-center gap-3">
+                        <input
+                          type="radio"
+                          name="car-body"
+                          value="Hatchback"
+                          class="form-radio text-red-500"
+                        />
+                        <span class="material-icons text-red-500"
+                          >directions_car_filled</span
+                        >
+                        <span class="font-medium">Hatchback</span>
+                      </div>
+                      <span class="material-icons text-gray-500">check_circle</span>
+                    </label>
+
+                    <!-- Coupe -->
+                    <label
+                      class="flex items-center justify-between px-4 py-3 bg-gray-100 rounded-xl shadow hover:bg-gray-200 cursor-pointer transition"
+                    >
+                      <div class="flex items-center gap-3">
+                        <input
+                          type="radio"
+                          name="car-body"
+                          value="Coupe"
+                          class="form-radio text-red-500"
+                        />
+                        <span class="material-icons text-red-500"
+                          >emoji_transportation</span
+                        >
+                        <span class="font-medium">Coupe</span>
+                      </div>
+                      <span class="material-icons text-gray-500">check_circle</span>
+                    </label>
+
+                    <!-- Convertible -->
+                    <label
+                      class="flex items-center justify-between px-4 py-3 bg-gray-100 rounded-xl shadow hover:bg-gray-200 cursor-pointer transition"
+                    >
+                      <div class="flex items-center gap-3">
+                        <input
+                          type="radio"
+                          name="car-body"
+                          value="Convertible"
+                          class="form-radio text-red-500"
+                        />
+                        <span class="material-icons text-red-500">roofing</span>
+                        <span class="font-medium">Convertible</span>
+                      </div>
+                      <span class="material-icons text-gray-500">check_circle</span>
+                    </label>
+
+                    <!-- Wagon -->
+                    <label
+                      class="flex items-center justify-between px-4 py-3 bg-gray-100 rounded-xl shadow hover:bg-gray-200 cursor-pointer transition"
+                    >
+                      <div class="flex items-center gap-3">
+                        <input
+                          type="radio"
+                          name="car-body"
+                          value="Wagon"
+                          class="form-radio text-red-500"
+                        />
+                        <span class="material-icons text-red-500"
+                          >directions_car_filled</span
+                        >
+                        <span class="font-medium">Wagon</span>
+                      </div>
+                      <span class="material-icons text-gray-500">check_circle</span>
+                    </label>
+
+                    <!-- Van -->
+                    <label
+                      class="flex items-center justify-between px-4 py-3 bg-gray-100 rounded-xl shadow hover:bg-gray-200 cursor-pointer transition"
+                    >
+                      <div class="flex items-center gap-3">
+                        <input
+                          type="radio"
+                          name="car-body"
+                          value="Van"
+                          class="form-radio text-red-500"
+                        />
+                        <span class="material-icons text-red-500"
+                          >airport_shuttle</span
+                        >
+                        <span class="font-medium">Van</span>
+                      </div>
+                      <span class="material-icons text-gray-500">check_circle</span>
+                    </label>
+
+                    <!-- Truck -->
+                    <label
+                      class="flex items-center justify-between px-4 py-3 bg-gray-100 rounded-xl shadow hover:bg-gray-200 cursor-pointer transition"
+                    >
+                      <div class="flex items-center gap-3">
+                        <input
+                          type="radio"
+                          name="car-body"
+                          value="Truck"
+                          class="form-radio text-red-500"
+                        />
+                        <span class="material-icons text-red-500"
+                          >local_shipping</span
+                        >
+                        <span class="font-medium">Truck</span>
+                      </div>
+                      <span class="material-icons text-gray-500">check_circle</span>
+                    </label>
+                  </div>
+                </div>
+                <h2 class="text-stone-700 border-bpx-2 font-bold mb-3 text-[18px]">
+                  Book Your Appointment
+                </h2>
+                <div class="flex flex-col gap-2">
+                  <select
+                    id="month-select"
+                    class="w-full p-3 rounded-[10px] border border-[#ccc] bg-[#ffffff] text-stone-600 font-bold text-[14px]"
+                  ></select>
+                  <div id="days-grid" class="grid grid-cols-7 gap-[6px] mt-3"></div>
+                  <div
+                    class="flex justify-between text-xs mt-2 border border-gray-300 p-2 px-4 rounded-3xl"
                   >
-                  <span class="font-medium">Sedan</span>
+                    <span class="flex items-center gap-1">
+                      <span class="bg-red-600 w-[10px] h-[10px] rounded-full"></span
+                      >Not Available
+                    </span>
+                    <span class="flex items-center gap-1">
+                      <span
+                        class="bg-gray-300 w-[10px] h-[10px] rounded-full border border-gray-400"
+                      ></span
+                      >Few Slots
+                    </span>
+                    <span class="flex items-center gap-1">
+                      <span
+                        class="bg-white w-[10px] h-[10px] rounded-full border border-gray-300"
+                      ></span
+                      >Available 
+                    </span>
+                  </div>
                 </div>
-                <span class="material-icons text-gray-500">check_circle</span>
-              </label>
-
-              <!-- SUV -->
-              <label
-                class="flex items-center justify-between px-4 py-3 bg-gray-100 rounded-xl shadow hover:bg-gray-200 cursor-pointer transition"
-              >
-                <div class="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="car-body"
-                    value="SUV"
-                    class="form-radio text-red-500"
-                  />
-                  <span class="material-icons text-red-500"
-                    >airport_shuttle</span
-                  >
-                  <span class="font-medium">SUV</span>
-                </div>
-                <span class="material-icons text-gray-500">check_circle</span>
-              </label>
-
-              <!-- Hatchback -->
-              <label
-                class="flex items-center justify-between px-4 py-3 bg-gray-100 rounded-xl shadow hover:bg-gray-200 cursor-pointer transition"
-              >
-                <div class="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="car-body"
-                    value="Hatchback"
-                    class="form-radio text-red-500"
-                  />
-                  <span class="material-icons text-red-500"
-                    >directions_car_filled</span
-                  >
-                  <span class="font-medium">Hatchback</span>
-                </div>
-                <span class="material-icons text-gray-500">check_circle</span>
-              </label>
-
-              <!-- Coupe -->
-              <label
-                class="flex items-center justify-between px-4 py-3 bg-gray-100 rounded-xl shadow hover:bg-gray-200 cursor-pointer transition"
-              >
-                <div class="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="car-body"
-                    value="Coupe"
-                    class="form-radio text-red-500"
-                  />
-                  <span class="material-icons text-red-500"
-                    >emoji_transportation</span
-                  >
-                  <span class="font-medium">Coupe</span>
-                </div>
-                <span class="material-icons text-gray-500">check_circle</span>
-              </label>
-
-              <!-- Convertible -->
-              <label
-                class="flex items-center justify-between px-4 py-3 bg-gray-100 rounded-xl shadow hover:bg-gray-200 cursor-pointer transition"
-              >
-                <div class="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="car-body"
-                    value="Convertible"
-                    class="form-radio text-red-500"
-                  />
-                  <span class="material-icons text-red-500">roofing</span>
-                  <span class="font-medium">Convertible</span>
-                </div>
-                <span class="material-icons text-gray-500">check_circle</span>
-              </label>
-
-              <!-- Wagon -->
-              <label
-                class="flex items-center justify-between px-4 py-3 bg-gray-100 rounded-xl shadow hover:bg-gray-200 cursor-pointer transition"
-              >
-                <div class="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="car-body"
-                    value="Wagon"
-                    class="form-radio text-red-500"
-                  />
-                  <span class="material-icons text-red-500"
-                    >directions_car_filled</span
-                  >
-                  <span class="font-medium">Wagon</span>
-                </div>
-                <span class="material-icons text-gray-500">check_circle</span>
-              </label>
-
-              <!-- Van -->
-              <label
-                class="flex items-center justify-between px-4 py-3 bg-gray-100 rounded-xl shadow hover:bg-gray-200 cursor-pointer transition"
-              >
-                <div class="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="car-body"
-                    value="Van"
-                    class="form-radio text-red-500"
-                  />
-                  <span class="material-icons text-red-500"
-                    >airport_shuttle</span
-                  >
-                  <span class="font-medium">Van</span>
-                </div>
-                <span class="material-icons text-gray-500">check_circle</span>
-              </label>
-
-              <!-- Truck -->
-              <label
-                class="flex items-center justify-between px-4 py-3 bg-gray-100 rounded-xl shadow hover:bg-gray-200 cursor-pointer transition"
-              >
-                <div class="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="car-body"
-                    value="Truck"
-                    class="form-radio text-red-500"
-                  />
-                  <span class="material-icons text-red-500"
-                    >local_shipping</span
-                  >
-                  <span class="font-medium">Truck</span>
-                </div>
-                <span class="material-icons text-gray-500">check_circle</span>
-              </label>
-            </div>
-          </div>
-          <h2 class="text-stone-700 border-bpx-2 font-bold mb-3 text-[18px]">
-            Book Your Appointment
-          </h2>
-          <div class="flex flex-col gap-2">
-            <select
-              id="month-select"
-              class="w-full p-3 rounded-[10px] border border-[#ccc] bg-[#ffffff] text-stone-600 font-bold text-[14px]"
-            ></select>
-            <div id="days-grid" class="grid grid-cols-7 gap-[6px] mt-3"></div>
-            <div
-              class="flex justify-between text-xs mt-2 border border-gray-300 p-2 px-4 rounded-3xl"
-            >
-              <span class="flex items-center gap-1">
-                <span class="bg-red-600 w-[10px] h-[10px] rounded-full"></span
-                >Not Available
-              </span>
-              <span class="flex items-center gap-1">
-                <span
-                  class="bg-gray-300 w-[10px] h-[10px] rounded-full border border-gray-400"
-                ></span
-                >Few Slots
-              </span>
-              <span class="flex items-center gap-1">
-                <span
-                  class="bg-white w-[10px] h-[10px] rounded-full border border-gray-300"
-                ></span
-                >Available
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Chat Section -->
-      <div class="flex-1 flex flex-col bg-[#ffffff]">
-        <div
-          class="flex justify-between items-center p-4 border-b border-[#dee2e6] bg-[#f8f9fa]"
-        >
-          <div class="flex items-center gap-2.5">
-            <img
-              src="https://via.placeholder.com/40"
-              alt=""
-              class="rounded-full"
-            />
-            <div>
-              <h2 class="text-stone-600 font-bold text-[18px]">
-                <span class="text-red-500 text-2xl">Carglass</span> Chatbot
-              </h2>
-              <div class="flex gap-1.5 items-center">
-                <div class="w-2 h-2 rounded-full bg-[#28a745]"></div>
-                <span class="text-[11px] text-[#666]">Online</span>
               </div>
             </div>
+            <div class="lg:hidden">
+                <button id="closeSidebar" 
+                  class="h-32 w-fit px-0.5 flex items-center justify-center 
+                        bg-gradient-to-b from-gray-800 via-red-500 to-gray-800 
+                        rounded-r-2xl border-r border-gray-800 shadow-lg 
+                        hover:from-red-500 hover:via-red-400 hover:to-gray-300
+                        hover:shadow-xl hover:scale-105
+                        transition-all duration-300 ease-in-out">
+                  <i class="fas fa-caret-left text-xl text-white"></i>
+                </button>
+            </div>
           </div>
         </div>
 
-        <!-- Chat Box -->
-        <div
-          id="chatBox"
-          class="flex-1 p-5 overflow-y-auto flex flex-col gap-4 bg-[#fdfdfd]"
-        >
+        <!-- Chat Section -->
+        <div class="flex-1 flex flex-col bg-[#ffffff] h-full border border-gray-300">
+          
+        <div class="w-full p-4">
+          <div class="flex flex-col">
+              <div class="flex items-center gap-0.5">
+                <div class="triangle-yellow"></div>
+
+                <div class="square-yellow"></div>
+
+                <div class="square-red"></div>
+                <div class="square-red"></div>
+
+                <div class="triangle-red"></div>
+              </div>
+              <p class="font-bold text-[#f11717] text-xl">
+                CARGLASS
+              </p>
+            </div>
+
+            <div class="fixed lg:hidden top-1/2 -translate-y-1/2 -left-0 z-[90]">
+              <button id="openSidebar" 
+                class="h-32 w-fit pr-0.5 flex items-center justify-center 
+                        bg-gradient-to-b from-gray-800 via-red-500 to-gray-800 
+                        rounded-r-2xl border-r border-gray-800 shadow-lg 
+                        hover:from-red-500 hover:via-red-400 hover:to-gray-300
+                        hover:shadow-xl hover:scale-105
+                        transition-all duration-300 ease-in-out">
+                <i class="fas fa-caret-right text-white text-xl"></i>
+              </button>
+
+            </div>
+          </div>
           <div
-            class="bg-[#e9ecef] text-gray-700 px-3.5 py-2.5 rounded-2xl border border-gray-300 max-w-[75%] text-[14px] leading-[1.5] font-semibold shadow-xl relative"
+            class="flex justify-between items-center p-2 border-b border-[#dee2e6] bg-[#f8f9fa]"
+          >
+            <div class="flex items-center gap-2.5">
+              <img
+                src="https://via.placeholder.com/40"
+                alt=""
+                class="rounded-full"
+              />
+              <div>
+                <h2 class="text-stone-600 font-bold text-[18px]">
+                  Chatbot
+                </h2>
+                <div class="flex gap-1.5 items-center">
+                  <div class="w-2 h-2 rounded-full bg-[#28a745]"></div>
+                  <span class="text-[11px] text-[#666]">Online</span>
+                </div>
+              </div>
+            </div>
+            <div  class="relative">
+              <elevenlabs-convai class="fixed -top-6 -right-6" agent-id="agent_2901k4hn6hq5e59vhsxzrqz8w256"></elevenlabs-convai><script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript" style="background-color: red;"></script>
+            </div>
+          </div>
+
+          <!-- Chat Box -->
+          <div
+            id="chatBox"
+            class="flex-1 p-5 pl-8 overflow-y-auto flex flex-col gap-4 bg-[#fdfdfd]"
+          >
+            <div
+              class="bg-[#e9ecef] text-gray-700 px-3.5 py-2.5 rounded-2xl border border-gray-300 max-w-[75%] text-[14px] leading-[1.5] font-semibold shadow-xl relative"
+            >
+              <div class="absolute -top-4 -left-4">
+                <img
+                  class="w-8 h-auto"
+                  src="https://cdn-icons-png.flaticon.com/512/8943/8943377.png"
+                  alt=""
+                />
+              </div>
+              Hello! Welcome to CarGlass. How can I help you today?<br />
+              <span class="text-[10px] text-[#777]">10:00 AM</span>
+            </div>
+          </div>
+
+          <!-- Typing Indicator -->
+          <div
+            id="typingIndicator"
+            class="hidden items-center gap-1.5 px-3.5 py-2.5 max-w-[75%] text-[14px] font-semibold text-gray-700 rounded-2xl border border-gray-300 relative"
           >
             <div class="absolute -top-4 -left-4">
               <img
@@ -373,61 +455,54 @@
                 alt=""
               />
             </div>
-            Hello! Welcome to CarGlass. How can I help you today?<br />
-            <span class="text-[10px] text-[#777]">10:00 AM</span>
+            <div class="flex gap-1">
+              <span class="dot">.</span>
+              <span class="dot animation-delay-150">.</span>
+              <span class="dot animation-delay-300">.</span>
+            </div>
           </div>
-        </div>
 
-        <!-- Typing Indicator -->
-        <div
-          id="typingIndicator"
-          class="hidden items-center gap-1.5 px-3.5 py-2.5 max-w-[75%] text-[14px] font-semibold text-gray-700 rounded-2xl border border-gray-300 relative"
-        >
-          <div class="absolute -top-4 -left-4">
-            <img
-              class="w-8 h-auto"
-              src="https://cdn-icons-png.flaticon.com/512/8943/8943377.png"
-              alt=""
-            />
-          </div>
-          <div class="flex gap-1">
-            <span class="dot">.</span>
-            <span class="dot animation-delay-150">.</span>
-            <span class="dot animation-delay-300">.</span>
-          </div>
-        </div>
-
-        <!-- Input Section -->
-        <div
-          class="flex items-center p-3.5 border-t border-[#dee2e6] bg-[#f8f9fa] gap-2.5"
-        >
-          <input
-            id="message"
-            type="text"
-            placeholder="Type your message..."
-            class="flex-1 px-3.5 py-2.5 rounded-xl border border-[#ccc] outline-none bg-[#ffffff] text-[#333] text-[14px]"
-            autocomplete="off"
-            spellcheck="false"
-            autocorrect="off"
-            autocapitalize="off"
-          />
-          <button id="attachBtn" class="text-blue-600" type="button">
-            <span class="material-icons">attach_file</span>
-          </button>
-          <button
-            id="micBtn"
-            class="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-xl bg-gray-100 hover:bg-gray-200 transition"
+          <!-- Input Section -->
+          <div
+            class="flex items-center p-3.5 border-t border-[#dee2e6] bg-[#f8f9fa] gap-2.5"
           >
+            <input
+              id="message"
+              type="text"
+              placeholder="Type your message..."
+              class="flex-1 px-3.5 py-2.5 rounded-xl border border-[#ccc] outline-none bg-[#ffffff] text-[#333] text-[14px]"
+              autocomplete="off"
+              spellcheck="false"
+              autocorrect="off"
+              autocapitalize="off"
+            />
+          <button
+                id="micBtn"
+                class="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-xl bg-gray-100 hover:bg-gray-200 transition"
+              >
             🎤 <span id="micStatus" class="text-sm text-gray-600">Start</span>
           </button>
-          <button id="sendBtn" class="text-gray-700" type="button">
-            <span class="material-icons">send</span>
-          </button>
+            <button id="sendBtn" class="text-gray-700" type="button">
+              <span class="material-icons">send</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>
 
     <script>
+      // open and close sidebar
+      const sidebar = document.getElementById("sidebar");
+      const openBtn = document.getElementById("openSidebar");
+      const closeBtn = document.getElementById("closeSidebar");
+
+      openBtn.addEventListener("click", () => {
+        sidebar.classList.remove("-translate-x-full");
+      });
+
+      closeBtn.addEventListener("click", () => {
+        sidebar.classList.add("-translate-x-full");
+      });
       /* ======= تقويم الأيام ======= */
       const monthSelect = document.getElementById("month-select");
       const months = [
@@ -564,32 +639,82 @@
         currentLang = currentLang === "en" ? "de" : "en";
         updateLanguageUI();
       });
+
+      /* ===== Conversation Storage with 12h Expiry ===== */
+      const CHAT_KEY = "chat_history"; // full conversation (all pairs)
+      const EXPIRY_HOURS = 12;
+      const TTL_MS = EXPIRY_HOURS * 60 * 60 * 1000;
+
+      function nowMs() {
+        return Date.now();
+      }
+      function isFresh(ts) {
+        return nowMs() - ts < TTL_MS;
+      }
+
+      function getFullConversation() {
+        const raw = localStorage.getItem(CHAT_KEY);
+        if (!raw) return [];
+        let list;
+        try {
+          list = JSON.parse(raw) || [];
+        } catch {
+          return [];
+        }
+        const fresh = list.filter((item) => isFresh(item.timestamp));
+        if (fresh.length !== list.length) {
+          localStorage.setItem(CHAT_KEY, JSON.stringify(fresh)); // cleanup
+        }
+        return fresh;
+      }
+
+      function saveFullConversation(list) {
+        localStorage.setItem(CHAT_KEY, JSON.stringify(list));
+      }
+
+      function addConversationPair(userMessage, botReply) {
+        const full = getFullConversation();
+        full.push({ user: userMessage, bot: botReply, timestamp: nowMs() });
+        saveFullConversation(full); // keep ALL fresh pairs (not limited to 5)
+      }
+
+      function getLastPairs(n = 5) {
+        // returns only {user, bot} for backend (no timestamps)
+        const full = getFullConversation();
+        return full.slice(-n).map(({ user, bot }) => ({ user, bot }));
+      }
+
+      function restoreChatUI() {
+        const full = getFullConversation();
+        full.forEach((pair) => {
+          addMessage(pair.user, "user");
+          addMessage(pair.bot, "bot");
+        });
+      }
+
+      // Optional: periodic cleanup tick (keeps storage tidy if page stays open)
+      setInterval(() => {
+        getFullConversation();
+      }, 60 * 1000);
+
+      /* ====== Chat Rendering ====== */
       function addMessage(data, from = "user") {
         const time = new Date().toLocaleTimeString([], {
           hour: "2-digit",
           minute: "2-digit",
         });
         let messageHTML = "";
-
-        // تجهيز النص النهائي
         let textToShow = "";
 
         if (typeof data === "string") {
-          // الرد نص عادي
           textToShow = data;
         } else if (typeof data === "object" && data !== null) {
           if (data.output) {
-            // في حال كان الرد JSON وفيه output
             textToShow = data.output;
           } else if (data.start_date && data.end_date) {
-            // في حال كان الرد عبارة عن بيانات حجز
             const startDate = new Date(data.start_date);
             const endDate = new Date(data.end_date);
-
-            // التاريخ يظهر مرة وحدة
             const dateLabel = startDate.toLocaleDateString();
-
-            // الوقت منفصل
             const startTime = startDate.toLocaleTimeString([], {
               hour: "2-digit",
               minute: "2-digit",
@@ -598,54 +723,48 @@
               hour: "2-digit",
               minute: "2-digit",
             });
-
             textToShow = `
-        <div class="flex items-center justify-between gap-2 mb-3">
-          <div>
-            <span class="text-lg">📅</span>
-            <span class="font-semibold text-gray-900">Appointment Details</span>
+          <div class="flex items-center justify-between gap-2 mb-3">
+            <div><span class="text-lg">📅</span>
+              <span class="font-semibold text-gray-900">Appointment Details</span>
+            </div>
+            <div><span class="font-semibold text-gray-900">${dateLabel}</span></div>
           </div>
-          <div>
-            <span class="font-semibold text-gray-900">${dateLabel}</span>
-          </div>
-        </div>
-
-        <div class="space-y-1 text-sm">
-          <p><span class="font-bold text-gray-700">⏰ Time:</span> ${startTime} - ${endTime}</p>
-          <p><span class="font-bold text-gray-700">👤 Name:</span> ${data.fullName}</p>
-          <p><span class="font-bold text-gray-700">📞 Phone:</span> ${data.contact.phone}</p>
-          <p><span class="font-bold text-gray-700">✉️ Email:</span> ${data.contact.email}</p>
-          <p><span class="font-bold text-gray-700">🚗 Vehicle:</span> ${data.vehicle.make} ${data.vehicle.model} (${data.vehicle.year})</p>
-          <p><span class="font-bold text-gray-700">🔧 Service:</span> ${data.service}</p>
-        </div>
-      `;
+          <div class="space-y-1 text-sm">
+            <p><span class="font-bold text-gray-700">⏰ Time:</span> ${startTime} - ${endTime}</p>
+            <p><span class="font-bold text-gray-700">👤 Name:</span> ${data.fullName}</p>
+            <p><span class="font-bold text-gray-700">📞 Phone:</span> ${data.contact.phone}</p>
+            <p><span class="font-bold text-gray-700">✉️ Email:</span> ${data.contact.email}</p>
+            <p><span class="font-bold text-gray-700">🚗 Vehicle:</span> ${data.vehicle.make} ${data.vehicle.model} (${data.vehicle.year})</p>
+            <p><span class="font-bold text-gray-700">🔧 Service:</span> ${data.service}</p>
+          </div>`;
           } else {
-            // fallback
             textToShow = JSON.stringify(data, null, 2);
           }
         }
 
         if (from === "user") {
           messageHTML = `
-      <div class="bg-gradient-to-tl from-red-400 to-gray-400 text-white px-3.5 py-2.5 rounded-2xl border border-gray-300 max-w-[75%] text-[14px] leading-[1.5] ml-auto font-semibold shadow-xl relative">
-        ${textToShow}<br>
-        <span class="text-[10px] text-[#f5f2ee]">${time}</span>
-      </div>`;
+        <div class="bg-gradient-to-tl from-red-400 to-gray-400 text-white px-3.5 py-2.5 rounded-2xl border border-gray-300 max-w-[75%] text-[14px] leading-[1.5] ml-auto font-semibold shadow-xl relative">
+          ${textToShow}<br>
+          <span class="text-[10px] text-[#f5f2ee]">${time}</span>
+        </div>`;
         } else {
           messageHTML = `
-      <div class="bg-[#e9ecef] text-gray-700 px-3.5 py-2.5 rounded-2xl border border-gray-300 max-w-[75%] text-[14px] leading-[1.5] font-semibold shadow-xl relative">
-        <div class="absolute -top-4 -left-4">
-          <img class="w-8 h-auto" src="https://cdn-icons-png.flaticon.com/512/8943/8943377.png" alt="">
-        </div>
-        ${textToShow}
-        <br><span class="text-[10px] text-[#777]">${time}</span>
-      </div>`;
+        <div class="bg-[#e9ecef] text-gray-700 px-3.5 py-2.5 rounded-2xl border border-gray-300 max-w-[75%] text-[14px] leading-[1.5] font-semibold shadow-xl relative">
+          <div class="absolute -top-4 -left-4">
+            <img class="w-8 h-auto" src="https://cdn-icons-png.flaticon.com/512/8943/8943377.png" alt="">
+          </div>
+          ${textToShow}
+          <br><span class="text-[10px] text-[#777]">${time}</span>
+        </div>`;
         }
 
         chatBox.innerHTML += messageHTML;
         chatBox.scrollTop = chatBox.scrollHeight;
       }
 
+      /* ===== Sending Messages ===== */
       async function sendMessage() {
         const userMessage = messageInput.value.trim();
         if (!userMessage) return;
@@ -657,14 +776,20 @@
         chatBox.scrollTop = chatBox.scrollHeight;
 
         try {
+          const historyForBackend = getLastPairs(5); // ⬅️ only last 5
           const response = await fetch("/analyze", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: userMessage, lang: currentLang }),
+            body: JSON.stringify({
+              message: userMessage,
+              lang: currentLang,
+              history: historyForBackend,
+            }),
           });
           const data = await response.json();
           typingIndicator.classList.add("hidden");
           addMessage(data.reply, "bot");
+          addConversationPair(userMessage, data.reply); // store full convo (with timestamp)
         } catch (err) {
           typingIndicator.classList.add("hidden");
           addMessage("Error connecting to server.", "bot");
@@ -677,7 +802,7 @@
         if (e.key === "Enter") sendMessage();
       });
 
-      /* خدمات */
+      /* ===== services ===== */
       servicesContainer.querySelectorAll(".service-btn").forEach((button) => {
         button.addEventListener("click", () => {
           const serviceName =
@@ -694,15 +819,22 @@
           chatBox.appendChild(typingIndicator);
           chatBox.scrollTop = chatBox.scrollHeight;
 
+          sidebar.classList.add("-translate-x-full");
+          const historyForBackend = getLastPairs(5); 
           fetch("/message", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ message: userMessage, lang: currentLang }),
+            body: JSON.stringify({
+              message: userMessage,
+              lang: currentLang,
+              history: historyForBackend,
+            }),
           })
             .then((res) => res.json())
             .then((data) => {
               typingIndicator.classList.add("hidden");
               addMessage(data.reply, "bot");
+              addConversationPair(userMessage, data.reply);
             })
             .catch((err) => {
               typingIndicator.classList.add("hidden");
@@ -712,7 +844,7 @@
         });
       });
 
-      /* ======= أوقات اليوم العشوائية ======= */
+      /* =====Days and time ======= */
       function generateTimes() {
         timesContainer.innerHTML = "";
         const possibleTimes = [
@@ -734,8 +866,7 @@
 
           const p = document.createElement("p");
           p.textContent = time;
-          p.className = `text-center w-full border-b border-r border-red-700 rounded-xl py-2 shadow-xl 
-      transform transition duration-200 hover:scale-105 hover:shadow-2xl flex items-center justify-between px-6 ${bgClass}`;
+          p.className = `text-center w-full border-b border-r border-red-700 rounded-xl py-2 shadow-xl transform transition duration-200 hover:scale-105 hover:shadow-2xl flex items-center justify-between px-6 ${bgClass}`;
           if (!p.classList.contains("cursor-not-allowed")) {
             p.addEventListener("click", () => {
               const formattedDate = selectedDate.toLocaleDateString(
@@ -758,18 +889,22 @@
               chatBox.appendChild(typingIndicator);
               chatBox.scrollTop = chatBox.scrollHeight;
 
+              sidebar.classList.add("-translate-x-full");
+              const historyForBackend = getLastPairs(5); // ⬅️ only last 5
               fetch("/analyze", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
                   message: userMessage,
                   lang: currentLang,
+                  history: historyForBackend,
                 }),
               })
                 .then((res) => res.json())
                 .then((data) => {
                   typingIndicator.classList.add("hidden");
                   addMessage(data.reply, "bot");
+                  addConversationPair(userMessage, data.reply);
                 })
                 .catch((err) => {
                   typingIndicator.classList.add("hidden");
@@ -798,87 +933,88 @@
 
       /* ===== ميكروفون ===== */
       const micBtn = document.getElementById("micBtn");
-const micStatus = document.getElementById("micStatus");
+      const micStatus = document.getElementById("micStatus");
 
-let mediaRecorder = null;
-let audioChunks = [];
-let isRecording = false;
+      let mediaRecorder = null;
+      let audioChunks = [];
+      let isRecording = false;
 
-// لتعطيل أي حدث أثناء التسجيل
-function disablePageActions() {
-  document.addEventListener("keydown", blockKeys, true);
-  document.addEventListener("click", blockClicks, true);
-}
-function enablePageActions() {
-  document.removeEventListener("keydown", blockKeys, true);
-  document.removeEventListener("click", blockClicks, true);
-}
-function blockKeys(e) {
-  e.stopPropagation();
-  e.preventDefault();
-}
-function blockClicks(e) {
-  if (!micBtn.contains(e.target)) { // السماح فقط بزر المايك
-    e.stopPropagation();
-    e.preventDefault();
-  }
-}
-
-micBtn.addEventListener("click", async () => {
-  if (!isRecording) {
-    // بدء التسجيل
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      mediaRecorder = new MediaRecorder(stream);
-      audioChunks = [];
-
-      mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
-
-      mediaRecorder.onstop = async () => {
-        const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
-        const formData = new FormData();
-        formData.append("audio", audioBlob, "voice.webm");
-
-        try {
-          const response = await fetch("/voice", {
-            method: "POST",
-            body: formData,
-          });
-          const data = await response.json();
-
-          addMessage(data.transcript || "Voice captured", "user");
-          addMessage(data.reply, "bot");
-
-          const utterance = new SpeechSynthesisUtterance(data.reply);
-          utterance.lang = data.lang || "en-US";
-          speechSynthesis.speak(utterance);
-        } catch (err) {
-          console.error(err);
-          addMessage("حدث خطأ أثناء معالجة الصوت.", "bot");
+      function disablePageActions() {
+        document.addEventListener("keydown", blockKeys, true);
+        document.addEventListener("click", blockClicks, true);
+      }
+      function enablePageActions() {
+        document.removeEventListener("keydown", blockKeys, true);
+        document.removeEventListener("click", blockClicks, true);
+      }
+      function blockKeys(e) {
+        e.stopPropagation();
+        e.preventDefault();
+      }
+      function blockClicks(e) {
+        if (!micBtn.contains(e.target)) {
+          e.stopPropagation();
+          e.preventDefault();
         }
-        enablePageActions();
-      };
+      }
 
-      mediaRecorder.start();
-      micStatus.textContent = "Recording...";
-      micBtn.classList.add("bg-red-200", "animate-pulse");
-      isRecording = true;
-      disablePageActions();
-    } catch (err) {
-      console.error(err);
-      alert("Microphone access denied or unavailable.");
-    }
-  } else {
-    // إيقاف التسجيل
-    mediaRecorder.stop();
-    micStatus.textContent = "Start";
-    micBtn.classList.remove("bg-red-200", "animate-pulse");
-    isRecording = false;
-  }
-});
+      micBtn.addEventListener("click", async () => {
+        if (!isRecording) {
+          try {
+            const stream = await navigator.mediaDevices.getUserMedia({
+              audio: true,
+            });
+            mediaRecorder = new MediaRecorder(stream);
+            audioChunks = [];
 
-      /* ===== تهيئة اللغة ======= */
+            mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
+
+            mediaRecorder.onstop = async () => {
+              const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
+              const formData = new FormData();
+              formData.append("audio", audioBlob, "voice.webm");
+
+              try {
+                const response = await fetch("/voice", {
+                  method: "POST",
+                  body: formData,
+                });
+                const data = await response.json();
+
+                addMessage(data.transcript || "Voice captured", "user");
+                addMessage(data.reply, "bot");
+                addConversationPair(data.transcript || "", data.reply);
+
+                const utterance = new SpeechSynthesisUtterance(data.reply);
+                utterance.lang = data.lang || "en-US";
+                speechSynthesis.speak(utterance);
+              } catch (err) {
+                console.error(err);
+                addMessage("حدث خطأ أثناء معالجة الصوت.", "bot");
+              }
+              enablePageActions();
+            };
+
+            mediaRecorder.start();
+            micStatus.textContent = "Recording...";
+            micBtn.classList.add("bg-red-200", "animate-pulse");
+            isRecording = true;
+            disablePageActions();
+          } catch (err) {
+            console.error(err);
+            alert("Microphone access denied or unavailable.");
+          }
+        } else {
+          mediaRecorder.stop();
+          micStatus.textContent = "Start";
+          micBtn.classList.remove("bg-red-200", "animate-pulse");
+          isRecording = false;
+        }
+      });
+
+      /* ===== تهيئة اللغة + Restore Chat ======= */
       updateLanguageUI();
+      restoreChatUI(); // ⬅️ bring full (fresh) conversation back on reload
     </script>
   </body>
 </html>

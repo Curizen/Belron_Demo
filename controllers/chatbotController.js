@@ -88,7 +88,7 @@ exports.sendMessage = async (req, res) => {
 
 exports.analyzeMessage = async (req, res) => {
   const userMessage = req.body.message;
-  const userUuid = req.cookies?.user_uuid || uuidv4(); 
+  const userUuid = req.cookies?.user_uuid || uuidv4();
 
   try {
     const n8nResponse = await axios.post(
@@ -99,13 +99,29 @@ exports.analyzeMessage = async (req, res) => {
       }
     );
 
-    console.log(n8nResponse?.data?.output || "hi");
+    const data = n8nResponse?.data;
+    let reply;
 
-    console.log(n8nResponse?.data?.message?.content || "No content found");
+    if (data?.output) {
+      if (typeof data.output === "object" && data.output.content) {
+        reply = data.output.content;
+      } else if (typeof data.output === "string") {
+        reply = data.output;
+      } else {
+        reply = JSON.stringify(data.output); 
+      }
+    } else if (data?.message?.content) {
+      reply = data.message.content;
+    } else {
+      reply = "No content found";
+    }
+
+    console.log("Full n8n response:", data);
+    console.log("Reply sent:", reply);
 
     return res.json({
       type: "n8n",
-      reply: n8nResponse.data.output || n8nResponse.data.message.content,
+      reply,
     });
   } catch (error) {
     console.error("Error forwarding to n8n:", error.message);

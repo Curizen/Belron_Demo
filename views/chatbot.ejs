@@ -69,7 +69,7 @@
   >
       <div class="flex flex-col lg:flex-row w-full lg:w-[80%] xl:w-[70%] h-full">
 
-        <!-- Left Section (Services) -->
+        
         <div id="sidebar"
           class="w-[95%] md:w-1/2 lg:w-[40%] xl:w-[35%] h-full fixed lg:relative z-[90000] flex 
                 transition-transform transform -translate-x-full lg:translate-x-0">
@@ -172,7 +172,7 @@
                   </h2>
 
                   <div class="flex flex-col gap-4 max-h-72 overflow-y-auto py-4">
-                    <!-- Sedan -->
+                    
                     <label
                       class="flex items-center justify-between px-4 py-3 bg-gray-100 rounded-xl shadow hover:bg-gray-200 cursor-pointer transition"
                     >
@@ -191,7 +191,7 @@
                       <span class="material-icons text-gray-500">check_circle</span>
                     </label>
 
-                    <!-- SUV -->
+                    
                     <label
                       class="flex items-center justify-between px-4 py-3 bg-gray-100 rounded-xl shadow hover:bg-gray-200 cursor-pointer transition"
                     >
@@ -210,7 +210,7 @@
                       <span class="material-icons text-gray-500">check_circle</span>
                     </label>
 
-                    <!-- Hatchback -->
+                    
                     <label
                       class="flex items-center justify-between px-4 py-3 bg-gray-100 rounded-xl shadow hover:bg-gray-200 cursor-pointer transition"
                     >
@@ -229,7 +229,7 @@
                       <span class="material-icons text-gray-500">check_circle</span>
                     </label>
 
-                    <!-- Coupe -->
+                    
                     <label
                       class="flex items-center justify-between px-4 py-3 bg-gray-100 rounded-xl shadow hover:bg-gray-200 cursor-pointer transition"
                     >
@@ -248,7 +248,7 @@
                       <span class="material-icons text-gray-500">check_circle</span>
                     </label>
 
-                    <!-- Convertible -->
+                    
                     <label
                       class="flex items-center justify-between px-4 py-3 bg-gray-100 rounded-xl shadow hover:bg-gray-200 cursor-pointer transition"
                     >
@@ -265,7 +265,7 @@
                       <span class="material-icons text-gray-500">check_circle</span>
                     </label>
 
-                    <!-- Wagon -->
+                    
                     <label
                       class="flex items-center justify-between px-4 py-3 bg-gray-100 rounded-xl shadow hover:bg-gray-200 cursor-pointer transition"
                     >
@@ -284,7 +284,7 @@
                       <span class="material-icons text-gray-500">check_circle</span>
                     </label>
 
-                    <!-- Van -->
+                    
                     <label
                       class="flex items-center justify-between px-4 py-3 bg-gray-100 rounded-xl shadow hover:bg-gray-200 cursor-pointer transition"
                     >
@@ -303,7 +303,7 @@
                       <span class="material-icons text-gray-500">check_circle</span>
                     </label>
 
-                    <!-- Truck -->
+                    
                     <label
                       class="flex items-center justify-between px-4 py-3 bg-gray-100 rounded-xl shadow hover:bg-gray-200 cursor-pointer transition"
                     >
@@ -369,7 +369,7 @@
           </div>
         </div>
 
-        <!-- Chat Section -->
+        
         <div class="flex-1 flex flex-col bg-[#ffffff] h-full border border-gray-300 w-full lg:w-2/3">
           
         <div class="w-full p-4 border-b border-gray-300">
@@ -409,14 +409,14 @@
             <elevenlabs-convai class="fixed -top-6 lg:-top-2 -right-4 md:right-0" agent-id="agent_2901k4hn6hq5e59vhsxzrqz8w256"></elevenlabs-convai><script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript" style="background-color: red;"></script>
           </div>
 
-          <!-- Chat Box -->
+          
           <div
             id="chatBox"
             class="flex-1 p-5 pl-8 overflow-y-auto flex flex-col gap-4 bg-[#fdfdfd]"
           >
           </div>
 
-          <!-- Typing Indicator -->
+          
           <div
             id="typingIndicator"
             class="hidden items-center gap-1.5 px-3.5 py-2.5 max-w-[75%] text-[14px] font-semibold text-gray-700 rounded-2xl border border-gray-300 relative"
@@ -424,9 +424,10 @@
             <div class="absolute -top-4 -left-4">
               <img
                 class="w-8 h-auto"
-                src="https://cdn-icons-png.flaticon.com/512/8943/8943377.png"
-                alt=""
+                src="/images/logo-chatbot.png"
+                alt="Logo"
               />
+
             </div>
             <div class="flex gap-1">
               <span class="dot">.</span>
@@ -435,7 +436,7 @@
             </div>
           </div>
 
-          <!-- Input Section -->
+          
           <div
             class="flex items-center p-3.5 border-t border-[#dee2e6] bg-[#f8f9fa] gap-2"
           >
@@ -625,7 +626,7 @@
 
           const iconImg = document.createElement("img");
           iconImg.className = "w-8 h-auto";
-          iconImg.src = "https://cdn-icons-png.flaticon.com/512/8943/8943377.png"; // أيقونة ثابتة
+          iconImg.src = "/images/logo-chatbot.png"; // أيقونة ثابتة
           iconImg.alt = "icon";
 
           iconDiv.appendChild(iconImg);
@@ -779,7 +780,7 @@
           messageHTML = `
         <div class="bg-[#e9ecef] text-gray-700 px-3.5 py-2.5 rounded-2xl border border-gray-300 max-w-[75%] text-[14px] leading-[1.5] font-semibold shadow-xl relative">
           <div class="absolute -top-4 -left-4">
-            <img class="w-8 h-auto" src="https://cdn-icons-png.flaticon.com/512/8943/8943377.png" alt="">
+            <img class="w-8 h-auto" src="/images/logo-chatbot.png" alt="">
           </div>
           ${textToShow}
           <br><span class="text-[10px] text-[#777]">${time}</span>

@@ -471,12 +471,6 @@
               autocorrect="off"
               autocapitalize="off"
             />
-          <button
-                id="micBtn"
-                class="flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-xl bg-gray-100 hover:bg-gray-200 transition"
-              >
-            🎤 <span id="micStatus" class="text-sm text-gray-600">Start</span>
-          </button>
             <button id="sendBtn" class="text-gray-700" type="button">
               <span class="material-icons">send</span>
             </button>
@@ -979,87 +973,6 @@
 
         generateTimes();
         timesContainer.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-
-      /* ===== ميكروفون ===== */
-      const micBtn = document.getElementById("micBtn");
-      const micStatus = document.getElementById("micStatus");
-
-      let mediaRecorder = null;
-      let audioChunks = [];
-      let isRecording = false;
-
-      function disablePageActions() {
-        document.addEventListener("keydown", blockKeys, true);
-        document.addEventListener("click", blockClicks, true);
-      }
-      function enablePageActions() {
-        document.removeEventListener("keydown", blockKeys, true);
-        document.removeEventListener("click", blockClicks, true);
-      }
-      function blockKeys(e) {
-        e.stopPropagation();
-        e.preventDefault();
-      }
-      function blockClicks(e) {
-        if (!micBtn.contains(e.target)) {
-          e.stopPropagation();
-          e.preventDefault();
-        }
-      }
-
-      micBtn.addEventListener("click", async () => {
-        if (!isRecording) {
-          try {
-            const stream = await navigator.mediaDevices.getUserMedia({
-              audio: true,
-            });
-            mediaRecorder = new MediaRecorder(stream);
-            audioChunks = [];
-
-            mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
-
-            mediaRecorder.onstop = async () => {
-              const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
-              const formData = new FormData();
-              formData.append("audio", audioBlob, "voice.webm");
-
-              try {
-                const response = await fetch("/voice", {
-                  method: "POST",
-                  body: formData,
-                });
-                const data = await response.json();
-
-                addMessage(data.transcript || "Voice captured", "user");
-                addMessage(data.reply, "bot");
-                addConversationPair(data.transcript || "", data.reply);
-
-                const utterance = new SpeechSynthesisUtterance(data.reply);
-                utterance.lang = data.lang || "en-US";
-                speechSynthesis.speak(utterance);
-              } catch (err) {
-                console.error(err);
-                addMessage("حدث خطأ أثناء معالجة الصوت.", "bot");
-              }
-              enablePageActions();
-            };
-
-            mediaRecorder.start();
-            micStatus.textContent = "Recording...";
-            micBtn.classList.add("bg-red-200", "animate-pulse");
-            isRecording = true;
-            disablePageActions();
-          } catch (err) {
-            console.error(err);
-            alert("Microphone access denied or unavailable.");
-          }
-        } else {
-          mediaRecorder.stop();
-          micStatus.textContent = "Start";
-          micBtn.classList.remove("bg-red-200", "animate-pulse");
-          isRecording = false;
-        }
       });
 
       /* ===== تهيئة اللغة + Restore Chat ======= */

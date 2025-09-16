@@ -5,11 +5,14 @@ const bodyParser = require("body-parser");
 const chatbotRoutes = require("./routes/chatbotRoutes");
 const fileUpload = require("express-fileupload");
 const cookieParser = require("cookie-parser");
+const feedbackRoutes = require("./routes/feedback");
 
 const app = express();
 app.use(fileUpload()); 
 
 app.use(cookieParser());
+
+app.use("/api", feedbackRoutes);
 
 app.use(express.json());
 

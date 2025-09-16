@@ -815,31 +815,39 @@ function restoreChatUI() {
     addMessage(pair.user, "user");
 
     if (pair.bot.startsWith("RATING:")) {
-      const ratingValue = parseInt(pair.bot.split(":")[1]);
-      // عرض كارد التقييم
-      const wrapper = addRatingCard(); 
-      // تهيئة الكارد لإظهار قيمة التقييم
-      const lastCard = chatBox.querySelector(".rating-card:last-child");
-      if (lastCard) {
-        const stars = lastCard.querySelectorAll(".star");
-        const resultBox = lastCard.querySelector(".rating-result");
-        const message = lastCard.querySelector(".rating-message");
-        const score = lastCard.querySelector(".rating-score");
+      // جلب القيمة المخزنة مسبقًا من localStorage
+      const storedRating = localStorage.getItem("chat_rating");
+      const hasStored = storedRating !== null;
+      const ratingValue = hasStored ? parseInt(storedRating) : null;
 
-        stars.forEach((s, index) => {
-          if (index < ratingValue) {
-            s.classList.remove("text-gray-300", "text-red-500");
-            s.classList.add("text-yellow-400");
-          } else {
-            s.classList.remove("text-gray-300", "text-yellow-400");
-            s.classList.add("text-red-500");
-          }
-        });
+      // عرض الكارد الفارغ دائمًا
+      addRatingCard();
 
-        resultBox.classList.remove("hidden");
-        message.textContent = "✅ Your rating has been submitted successfully";
-        score.textContent = `⭐ Your rating: ${ratingValue} / 10`;
+      if (hasStored) {
+        // تهيئة الكارد لإظهار قيمة التقييم المخزن
+        const lastCard = chatBox.querySelector(".rating-card:last-child");
+        if (lastCard) {
+          const stars = lastCard.querySelectorAll(".star");
+          const resultBox = lastCard.querySelector(".rating-result");
+          const message = lastCard.querySelector(".rating-message");
+          const score = lastCard.querySelector(".rating-score");
+
+          stars.forEach((s, index) => {
+            if (index < ratingValue) {
+              s.classList.remove("text-gray-300", "text-red-500");
+              s.classList.add("text-yellow-400");
+            } else {
+              s.classList.remove("text-gray-300", "text-yellow-400");
+              s.classList.add("text-red-500");
+            }
+          });
+
+          resultBox.classList.remove("hidden");
+          message.textContent = "✅ Your rating has been submitted successfully";
+          score.textContent = `⭐ Your rating: ${ratingValue} / 10`;
+        }
       }
+      // إذا لم يكن هناك قيمة مخزنة، الكارد يظهر فارغ بدون نجوم
     } else {
       addMessage(pair.bot, "bot");
     }

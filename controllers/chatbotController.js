@@ -125,7 +125,6 @@ exports.analyzeMessage = async (req, res) => {
 
     if (data.rating) {
       rating = data.rating;
-      reply = "Thank You For Rating" + rating;
     } else {
       reply = data.output;
     }

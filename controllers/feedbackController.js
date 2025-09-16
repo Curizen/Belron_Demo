@@ -1,9 +1,9 @@
 const axios = require('axios');
 
 exports.submitRating = async (req, res) => {
+	console.log("request rating")
 	try {
 		const { rating, session_id } = req.body;
-
 		console.log(`[Feedback] Received rating: ${rating}, session: ${session_id}`);
 
 		const response = await axios.post('https://curizen.app.n8n.cloud/webhook/feedback', {

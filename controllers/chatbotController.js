@@ -85,10 +85,10 @@ exports.sendMessage = async (req, res) => {
     });
   }
 };
-
 exports.analyzeMessage = async (req, res) => {
   const userMessage = req.body.message;
   const userUuid = req.cookies?.user_uuid || uuidv4();
+    console.log(userUuid)
 
   try {
     const n8nResponse = await axios.post(
@@ -101,14 +101,21 @@ exports.analyzeMessage = async (req, res) => {
 
     const data = n8nResponse?.data;
     let reply;
+    let rating = null;
 
+    console.log(userUuid)
     if (data?.output) {
-      if (typeof data.output === "object" && data.output.content) {
-        reply = data.output.content;
+      if (typeof data.output === "object") {
+        if (data.output.content) {
+          reply = data.output.content;
+        }
+        if (data.output.rating) {
+          rating = data.output.rating;
+        }
       } else if (typeof data.output === "string") {
         reply = data.output;
       } else {
-        reply = JSON.stringify(data.output); 
+        reply = JSON.stringify(data.output);
       }
     } else if (data?.message?.content) {
       reply = data.message.content;
@@ -116,13 +123,12 @@ exports.analyzeMessage = async (req, res) => {
       reply = "No content found";
     }
 
-    console.log("Full n8n response:", data);
-    console.log("Reply sent:", reply);
-
     return res.json({
       type: "n8n",
       reply,
+      rating, 
     });
+
   } catch (error) {
     console.error("Error forwarding to n8n:", error.message);
     res.status(500).json({ reply: "Error while communicating with n8n." });

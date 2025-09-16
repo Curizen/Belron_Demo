@@ -87,8 +87,6 @@ exports.sendMessage = async (req, res) => {
 };
 
 
-const { v4: uuidv4 } = require('uuid');
-
 exports.analyzeMessage = async (req, res) => {
   const userMessage = req.body.message;
   let deviceId = req.cookies?.device_id;

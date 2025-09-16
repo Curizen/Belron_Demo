@@ -85,16 +85,37 @@ exports.sendMessage = async (req, res) => {
     });
   }
 };
+
+
+const { v4: uuidv4 } = require('uuid');
+
 exports.analyzeMessage = async (req, res) => {
   const userMessage = req.body.message;
-  const userUuid = req.cookies?.user_uuid || uuidv4();
+  let deviceId = req.cookies?.device_id;
+  if (!deviceId) {
+    deviceId = uuidv4();
+    res.cookie('device_id', deviceId, {
+      httpOnly: true,        
+      secure: req.secure || req.get('x-forwarded-proto') === 'https', 
+      sameSite: 'lax',
+      maxAge: 10 * 365 * 24 * 60 * 60 * 1000,
+    });
+    console.log('Set new device_id cookie:', deviceId);
+  }
+
+  const userAgent = req.get('User-Agent') || null;
+  const clientIp = (req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').split(',')[0].trim().replace('::ffff:', '') || null;
 
   try {
     const n8nResponse = await axios.post(
       "https://curizen.app.n8n.cloud/webhook/40d45577-cd94-4ce8-9e23-8b65eec82b3a",
       {
-        id: "4444",
+        id: deviceId,      
         query: userMessage,
+        meta: {
+          ip: clientIp,
+          userAgent
+        }
       }
     );
 
@@ -102,15 +123,10 @@ exports.analyzeMessage = async (req, res) => {
     let reply;
     let rating = null;
 
-    console.log(userUuid)
     if (data?.output) {
       if (typeof data.output === "object") {
-        if (data.output.content) {
-          reply = data.output.content;
-        }
-        if (data.output.rating) {
-          rating = data.output.rating;
-        }
+        if (data.output.content) reply = data.output.content;
+        if (data.output.rating) rating = data.output.rating;
       } else if (typeof data.output === "string") {
         reply = data.output;
       } else {
@@ -125,7 +141,8 @@ exports.analyzeMessage = async (req, res) => {
     return res.json({
       type: "n8n",
       reply,
-      rating, 
+      rating,
+      deviceId
     });
 
   } catch (error) {

@@ -88,13 +88,12 @@ exports.sendMessage = async (req, res) => {
 exports.analyzeMessage = async (req, res) => {
   const userMessage = req.body.message;
   const userUuid = req.cookies?.user_uuid || uuidv4();
-    console.log(userUuid)
 
   try {
     const n8nResponse = await axios.post(
       "https://curizen.app.n8n.cloud/webhook/40d45577-cd94-4ce8-9e23-8b65eec82b3a",
       {
-        id: userUuid,
+        id: "4444",
         query: userMessage,
       }
     );

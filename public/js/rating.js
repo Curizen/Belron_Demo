@@ -21,7 +21,7 @@ export function addRatingCard() {
           </p>
         </div>
         <p class="text-lg font-semibold text-gray-600 mb-4">Rate your experience and help us improve</p>
-        <div class="flex justify-center gap-0.5 md:gap-2 text-4xl cursor-pointer mb-3 stars-wrapper">
+        <div class="flex justify-center gap-0.5 gap-2 text-3xl md:text-4xl cursor-pointer mb-3 stars-wrapper">
           ${Array.from({ length: 10 }, (_, i) => `<span data-value="${i+1}" class="star text-gray-300 transition-transform transform hover:scale-125">★</span>`).join('')}
         </div>
         <div class="rating-result hidden mt-3">

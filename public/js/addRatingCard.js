@@ -25,7 +25,7 @@ function addRatingCard() {
                 Rate your experience and help us improve
               </p>
 
-              <div class="flex justify-center gap-0.5 md:gap-2 text-4xl cursor-pointer mb-3 stars-wrapper">
+              <div class="flex justify-center gap-0.5 md:gap-2 text-3xl md:text-4xl cursor-pointer mb-3 stars-wrapper">
                 ${Array.from(
 					{ length: 10 },
 					(_, i) =>

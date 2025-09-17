@@ -108,7 +108,7 @@ exports.analyzeMessage = async (req, res) => {
 
   try {
     const n8nResponse = await axios.post(
-      "https://curizen.app.n8n.cloud/webhook/40d45577-cd94-4ce8-9e23-8b65eec82b3a",
+      "https://curizen.app.n8n.cloud/webhook/Chatbot",
       {
         id: deviceId,
         query: userMessage,

@@ -35,7 +35,7 @@ function addMessage(data, from = 'user') {
 		messageHTML = `
 			<div class="bg-gradient-to-tl from-red-400 to-gray-400 text-white px-3.5 py-2.5 rounded-2xl border border-gray-300 max-w-[75%] text-[14px] leading-[1.5] ml-auto font-semibold shadow-xl relative">
 				${contentHTML}
-				<br><span class="text-[10px] text-[#f5f2ee]">${time}</span>
+				<span class="text-[10px] text-[#f5f2ee]">${time}</span>
 			</div>`;
 	} else {
 		messageHTML = `
@@ -44,7 +44,7 @@ function addMessage(data, from = 'user') {
 					<img class="w-8 h-auto" src="/images/logo-chatbot.png" alt="">
 				</div>
 				${contentHTML}
-				<br><span class="text-[10px] text-[#777]">${time}</span>
+				<span class="text-[10px] text-[#777]">${time}</span>
 			</div>`;
 	}
 

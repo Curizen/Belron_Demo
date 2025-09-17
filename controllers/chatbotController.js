@@ -129,3 +129,44 @@ exports.analyzeMessage = async (req, res) => {
     res.status(500).json({ rating: null, output: "Error while communicating with n8n." });
   }
 };
+
+// exports.analyzeMessage = async (req, res) => {
+
+//   const userMessage = req.body.message;
+
+//   if (userMessage === "booking") {
+//     data ={
+//       output: 'Your appointment has been booked successfully! Our team will connect with you soon.',
+//       rating: 'booking'
+//     }
+//   } else if (userMessage === "null") {
+//     data = { rating: 'null', output: 'The user want to rate' };
+//   } else if (userMessage === "hello") {
+//     data = {
+//       output: 'Hello! Welcome to Carglass. How can I assist with your car glass today?'
+//     }
+//   } else {
+//     data = {
+//       output: {
+//         Name: 'abedalhakim',
+//         Phone_number: '0798024513',
+//         Email: '',
+//         Car_name: '',
+//         Car_type: '',
+//         Car_number: '',
+//         date: '',
+//         memory: '',
+//         Description: '',
+//         status: 'new client',
+//         content: "It seems that you're a new client; kindly give your car name and car type"
+//       }
+//     }
+//   }
+
+//   console.log(data);
+
+//   return res.json({
+//     rating: data.rating || null,
+//     output: data.output || data
+//   });
+// };

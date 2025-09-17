@@ -469,89 +469,11 @@
     <script src="/js/restoreChatUI.js"></script>
     <script src="/js/sendMessage.js"></script>
     <script src="/js/services.js"></script>
+    <script src="/js/restoreChatUI.js"></script>
     <script src="/js/sidebar.js"></script>
+    <script src="/js/cleanup.js"></script>
+    <script src="/js/init.js"></script>
+    <script src="/js/storage.js"></script>
 
-    <script>
-      const chatBox = document.getElementById("chatBox"); 
-
-      /* ======= الشات والميكروفون ======= */
-      let currentLang = "en";
-      const messageInput = document.getElementById("messageInput");
-      const sendBtn = document.getElementById("sendBtn");
-      const typingIndicator = document.getElementById("typingIndicator");
-      const servicesContainer = document.getElementById("servicesContainer");
-      const langToggle = document.getElementById("langToggle");
-      const servicesTitle = document.getElementById("servicesTitle");
-      const servicesDesc = document.getElementById("servicesDesc");
-
-      const texts = {
-        en: {
-          title: "Carglass Services",
-          desc: "Choose the service you want to learn more about. Our expert team is ready to guide you.",
-          langBtn: "DE",
-          userPlaceholder: "Type your message...",
-        },
-        de: {
-          title: "Carglass Dienstleistungen",
-          desc: "Wählen Sie den Service, über den Sie mehr erfahren möchten. Unser Expertenteam steht bereit.",
-          langBtn: "EN",
-          userPlaceholder: "Ihre Nachricht...",
-        },
-      };
-
-
-      /* ===== Conversation Storage with 12h Expiry ===== */
-      const CHAT_KEY = "chat_history"; // full conversation (all pairs)
-      const EXPIRY_HOURS = 12;
-      const TTL_MS = EXPIRY_HOURS * 60 * 60 * 1000;
-
-      function nowMs() {
-        return Date.now();
-      }
-      function isFresh(ts) {
-        return nowMs() - ts < TTL_MS;
-      }
-
-      function getFullConversation() {
-        const raw = localStorage.getItem(CHAT_KEY);
-        if (!raw) return [];
-        let list;
-        try {
-          list = JSON.parse(raw) || [];
-        } catch {
-          return [];
-        }
-        const fresh = list.filter((item) => isFresh(item.timestamp));
-        if (fresh.length !== list.length) {
-          localStorage.setItem(CHAT_KEY, JSON.stringify(fresh)); // cleanup
-        }
-        return fresh;
-      }
-
-      function saveFullConversation(list) {
-        localStorage.setItem(CHAT_KEY, JSON.stringify(list));
-      }
-
-      function addConversationPair(userMessage, botReply) {
-        const full = getFullConversation();
-        full.push({ user: userMessage, bot: botReply, timestamp: nowMs() });
-        saveFullConversation(full); // keep ALL fresh pairs (not limited to 5)
-      }
-
-      function getLastPairs(n = 5) {
-        // returns only {user, bot} for backend (no timestamps)
-        const full = getFullConversation();
-        return full.slice(-n).map(({ user, bot }) => ({ user, bot }));
-      }
-
-      // Optional: periodic cleanup tick (keeps storage tidy if page stays open)
-      setInterval(() => {
-        getFullConversation();
-      }, 60 * 1000);
-
-      createWelcomeMessage();
-      updateLanguageUI();
-      restoreChatUI(); // ⬅️ bring full (fresh) conversation back on reload
-    </script>
   </body>
 </html>

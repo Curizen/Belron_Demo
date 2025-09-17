@@ -1,4 +1,9 @@
 /* ===== Sending Messages ===== */
+sendBtn.addEventListener('click', sendMessage);
+messageInput.addEventListener('keypress', (e) => {
+	if (e.key === 'Enter') sendMessage();
+});
+
 async function sendMessage() {
 	const userMessage = messageInput.value.trim();
 	if (!userMessage) return;
@@ -25,32 +30,34 @@ async function sendMessage() {
 		const data = await response.json();
 		typingIndicator.classList.add('hidden');
 
-		let botReplyToStore = '';
+		let botReply = '';
 
 		const { rating, output } = data;
+		let botRating = null;
 
 		if (rating === 'null') {
 			addRatingCard();
-			botReplyToStore = 'RATING:null';
+			botReply = null;
+			botRating = 'null';
 		} else if (rating === 'booking') {
-			if (output) {
-				addMessage(output, 'bot');
-			}
+			if (output) addMessage(output, 'bot');
 			addRatingCard();
-			botReplyToStore = `RATING:booking`;
+			botReply = output;
+			botRating = 'booking';
 		} else {
 			if (output) {
 				if (typeof output === 'string') {
 					addMessage(output, 'bot');
-					botReplyToStore = output;
+					botReply = output;
 				} else if (typeof output === 'object') {
-					addMessage(output, 'bot');
-					botReplyToStore = JSON.stringify(output);
+					addPersonInfo(output, 'bot');
+					botReply = output;
 				}
 			}
 		}
 
-		addConversationPair(userMessage, botReplyToStore);
+		addConversationPair(userMessage, botReply, botRating);
+
 	} catch (err) {
 		typingIndicator.classList.add('hidden');
 		addMessage('Error connecting to server.', 'bot');
@@ -58,7 +65,4 @@ async function sendMessage() {
 	}
 }
 
-sendBtn.addEventListener('click', sendMessage);
-messageInput.addEventListener('keypress', (e) => {
-	if (e.key === 'Enter') sendMessage();
-});
+

@@ -11,23 +11,48 @@ function addMessage(data, from = 'user') {
 	if (typeof data === 'string') {
 		contentHTML = `<p>${data}</p>`;
 	} else if (typeof data === 'object' && data !== null) {
-		const obj = data.output || data;
-
-		contentHTML = `<div class="space-y-1 text-sm">`;
-		for (const key in obj) {
-			if (!obj.hasOwnProperty(key)) continue;
-
-			const displayKey = key.replace(/_/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
-			const value = obj[key];
-
-			if (typeof value === 'object' && value !== null) {
-				contentHTML += `<p><span class="font-bold text-gray-700">${displayKey}:</span></p>`;
-				contentHTML += `<div class="ml-4 p-2 border-l border-gray-300">${JSON.stringify(value, null, 2)}</div>`;
-			} else {
-				contentHTML += `<p><span class="font-bold text-gray-700">${displayKey}:</span> ${safeVal(value)}</p>`;
-			}
+		if (data.output && typeof data.output === 'object') {
+			const info = data.output;
+			contentHTML = `
+				<div class="space-y-1 text-sm">
+					<p><span class="font-bold text-gray-700">📞 Phone:</span> ${safeVal(info.Phone_number)}</p>
+					<p><span class="font-bold text-gray-700">✉️ Email:</span> ${safeVal(info.Email)}</p>
+					<p><span class="font-bold text-gray-700">🚗 Car Name:</span> ${safeVal(info.Car_name)}</p>
+					<p><span class="font-bold text-gray-700">🚘 Car Type:</span> ${safeVal(info.Car_type)}</p>
+					<p><span class="font-bold text-gray-700">🔢 Car Number:</span> ${safeVal(info.Car_number)}</p>
+					<p><span class="font-bold text-gray-700">📅 Date:</span> ${safeVal(info.date)}</p>
+					<p><span class="font-bold text-gray-700">🧠 Memory:</span> ${safeVal(info.memory)}</p>
+					<p><span class="font-bold text-gray-700">📝 Description:</span> ${safeVal(info.Description)}</p>
+					<p><span class="font-bold text-gray-700">📌 Status:</span> ${safeVal(info.status)}</p>
+					<p><span class="font-bold text-gray-700">💬 Content:</span> ${safeVal(info.content)}</p>
+				</div>
+			`;
+		} else if (data.start_date && data.end_date) {
+			const startDate = new Date(data.start_date);
+			const endDate = new Date(data.end_date);
+			const dateLabel = startDate.toLocaleDateString();
+			const startTime = startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+			const endTime = endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+			contentHTML = `
+				<div class="flex items-center justify-between gap-2 mb-3">
+					<div><span class="text-lg">📅</span>
+						<span class="font-semibold text-gray-900">Appointment Details</span>
+					</div>
+					<div><span class="font-semibold text-gray-900">${dateLabel}</span></div>
+				</div>
+				<div class="space-y-1 text-sm">
+					<p><span class="font-bold text-gray-700">⏰ Time:</span> ${startTime} - ${endTime}</p>
+					<p><span class="font-bold text-gray-700">👤 Name:</span> ${data.fullName}</p>
+					<p><span class="font-bold text-gray-700">📞 Phone:</span> ${data.contact.phone}</p>
+					<p><span class="font-bold text-gray-700">✉️ Email:</span> ${data.contact.email}</p>
+					<p><span class="font-bold text-gray-700">🚗 Vehicle:</span> ${data.vehicle.make} ${data.vehicle.model} (${data
+				.vehicle.year})</p>
+					<p><span class="font-bold text-gray-700">🔧 Service:</span> ${data.service}</p>
+				</div>
+			`;
+		} else {
+			contentHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
 		}
-		contentHTML += `</div>`;
 	}
 
 	let messageHTML = '';

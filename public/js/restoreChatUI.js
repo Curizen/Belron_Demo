@@ -1,40 +1,20 @@
 function restoreChatUI() {
-	const full = getFullConversation();
-	full.forEach((pair) => {
-		addMessage(pair.user, 'user');
+    const full = getFullConversation();
 
-		if (pair.bot.startsWith('RATING:')) {
-			const storedRating = localStorage.getItem('chat_rating');
-			const hasStored = storedRating !== null;
-			const ratingValue = hasStored ? parseInt(storedRating) : null;
+    full.forEach(pair => {
+        addMessage(pair.user.content, 'user');
 
-			addRatingCard();
-
-			if (hasStored) {
-				const lastCard = chatBox.querySelector('.rating-card:last-child');
-				if (lastCard) {
-					const stars = lastCard.querySelectorAll('.star');
-					const resultBox = lastCard.querySelector('.rating-result');
-					const message = lastCard.querySelector('.rating-message');
-					const score = lastCard.querySelector('.rating-score');
-
-					stars.forEach((s, index) => {
-						if (index < ratingValue) {
-							s.classList.remove('text-gray-300', 'text-red-500');
-							s.classList.add('text-yellow-400');
-						} else {
-							s.classList.remove('text-gray-300', 'text-yellow-400');
-							s.classList.add('text-red-500');
-						}
-					});
-
-					resultBox.classList.remove('hidden');
-					message.textContent = '✅ Your rating has been submitted successfully';
-					score.textContent = `⭐ Your rating: ${ratingValue} / 10`;
-				}
-			}
-		} else {
-			addMessage(pair.bot, 'bot');
-		}
-	});
+        if (pair.bot.type === "object") {
+            addPersonInfo(pair.bot.content, 'bot');
+        } else if (pair.bot.type === "rating") {
+            if (pair.bot.content === "null") {
+                addRatingCard();
+            } else if (pair.bot.content === "booking") {
+                addMessage(pair.bot.message, 'bot');
+                addRatingCard();
+            }
+        } else if (pair.bot.type === "string") {
+            addMessage(pair.bot.content, 'bot');
+        }
+    });
 }

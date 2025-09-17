@@ -44,7 +44,7 @@ async function sendMessage() {
 					addMessage(output, 'bot');
 					botReplyToStore = output;
 				} else if (typeof output === 'object') {
-					addPersonInfo(output, 'bot');
+					addMessage(output, 'bot');
 					botReplyToStore = JSON.stringify(output);
 				}
 			}

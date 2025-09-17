@@ -1,0 +1,52 @@
+[
+    {
+        "output": "Service Evaluation",
+        "rating": "null"
+    }
+],
+[
+{
+    "output": 
+    "Your appointment has been booked successfully! Our team will connect with you soon.",
+    "rating": 
+    "booking"
+}
+]
+[
+ 
+{
+ 
+"output": {
+ 
+"Name": "",
+ 
+"Phone_number": "",
+ 
+"Email": "",
+ 
+"Car_name": "",
+ 
+"Car_type": "",
+ 
+"Car_number": "",
+ 
+"date": "",
+ 
+"memory": "",
+ 
+"Description": "",
+ 
+"status": "new client",
+ 
+"content": "It seems that you're a new client; kindly give your car name and car type"
+ 
+}
+ 
+}
+]
+[
+{
+"output": 
+"What is your postcode?"
+}
+]

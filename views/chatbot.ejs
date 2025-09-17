@@ -458,6 +458,7 @@
         </div>
       </div>
     </div>
+    <script src="/js/restoreChatUI.js"></script>
     <script>
       const chatBox = document.getElementById("chatBox"); 
       function addRatingCard() {
@@ -809,52 +810,6 @@
         return full.slice(-n).map(({ user, bot }) => ({ user, bot }));
       }
 
-function restoreChatUI() {
-  const full = getFullConversation();
-  full.forEach((pair) => {
-    addMessage(pair.user, "user");
-
-    if (pair.bot.startsWith("RATING:")) {
-      // جلب القيمة المخزنة مسبقًا من localStorage
-      const storedRating = localStorage.getItem("chat_rating");
-      const hasStored = storedRating !== null;
-      const ratingValue = hasStored ? parseInt(storedRating) : null;
-
-      // عرض الكارد الفارغ دائمًا
-      addRatingCard();
-
-      if (hasStored) {
-        // تهيئة الكارد لإظهار قيمة التقييم المخزن
-        const lastCard = chatBox.querySelector(".rating-card:last-child");
-        if (lastCard) {
-          const stars = lastCard.querySelectorAll(".star");
-          const resultBox = lastCard.querySelector(".rating-result");
-          const message = lastCard.querySelector(".rating-message");
-          const score = lastCard.querySelector(".rating-score");
-
-          stars.forEach((s, index) => {
-            if (index < ratingValue) {
-              s.classList.remove("text-gray-300", "text-red-500");
-              s.classList.add("text-yellow-400");
-            } else {
-              s.classList.remove("text-gray-300", "text-yellow-400");
-              s.classList.add("text-red-500");
-            }
-          });
-
-          resultBox.classList.remove("hidden");
-          message.textContent = "✅ Your rating has been submitted successfully";
-          score.textContent = `⭐ Your rating: ${ratingValue} / 10`;
-        }
-      }
-      // إذا لم يكن هناك قيمة مخزنة، الكارد يظهر فارغ بدون نجوم
-    } else {
-      addMessage(pair.bot, "bot");
-    }
-  });
-}
-
-
       // Optional: periodic cleanup tick (keeps storage tidy if page stays open)
       setInterval(() => {
         getFullConversation();
@@ -927,10 +882,61 @@ function restoreChatUI() {
         chatBox.scrollTop = chatBox.scrollHeight;
       }
 
+      /*=============== card info render  =================*/ 
+      function addPersonInfo(info, from = "bot") {
+        const time = new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        });
+
+        const safeVal = (val) =>
+          val && val.trim && val.trim() !== "" ? val : "-";
+
+        let contentHTML = `
+          <div class="space-y-1 text-sm">
+            <p><span class="font-bold text-gray-700">👤 Name:</span> ${safeVal(info.Name)}</p>
+            <p><span class="font-bold text-gray-700">📞 Phone:</span> ${safeVal(info.Phone_number)}</p>
+            <p><span class="font-bold text-gray-700">✉️ Email:</span> ${safeVal(info.Email)}</p>
+            <p><span class="font-bold text-gray-700">🚗 Car Name:</span> ${safeVal(info.Car_name)}</p>
+            <p><span class="font-bold text-gray-700">🚘 Car Type:</span> ${safeVal(info.Car_type)}</p>
+            <p><span class="font-bold text-gray-700">🔢 Car Number:</span> ${safeVal(info.Car_number)}</p>
+            <p><span class="font-bold text-gray-700">📅 Date:</span> ${safeVal(info.date)}</p>
+            <p><span class="font-bold text-gray-700">🧠 Memory:</span> ${safeVal(info.memory)}</p>
+            <p><span class="font-bold text-gray-700">📝 Description:</span> ${safeVal(info.Description)}</p>
+            <p><span class="font-bold text-gray-700">📌 Status:</span> ${safeVal(info.status)}</p>
+            <p><span class="font-bold text-gray-700">💬 Content:</span> ${safeVal(info.content)}</p>
+          </div>
+        `;
+
+        let messageHTML = "";
+
+        if (from === "user") {
+          messageHTML = `
+            <div class="bg-gradient-to-tl from-red-400 to-gray-400 text-white px-3.5 py-2.5 rounded-2xl border border-gray-300 max-w-[75%] text-[14px] leading-[1.5] ml-auto font-semibold shadow-xl relative">
+              ${contentHTML}
+              <br><span class="text-[10px] text-[#f5f2ee]">${time}</span>
+            </div>`;
+        } else {
+          messageHTML = `
+            <div class="bg-[#e9ecef] text-gray-700 px-3.5 py-2.5 rounded-2xl border border-gray-300 max-w-[75%] text-[14px] leading-[1.5] font-semibold shadow-xl relative">
+              <div class="absolute -top-4 -left-4">
+                <img class="w-8 h-auto" src="/images/logo-chatbot.png" alt="">
+              </div>
+              ${contentHTML}
+              <br><span class="text-[10px] text-[#777]">${time}</span>
+            </div>`;
+        }
+
+        chatBox.innerHTML += messageHTML;
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }
+
+
       /* ===== Sending Messages ===== */
       async function sendMessage() {
         const userMessage = messageInput.value.trim();
         if (!userMessage) return;
+
         addMessage(userMessage, "user");
         messageInput.value = "";
 
@@ -939,7 +945,7 @@ function restoreChatUI() {
         chatBox.scrollTop = chatBox.scrollHeight;
 
         try {
-          const historyForBackend = getLastPairs(5); // ⬅️ only last 5
+          const historyForBackend = getLastPairs(5);
           const response = await fetch("/analyze", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -949,20 +955,38 @@ function restoreChatUI() {
               history: historyForBackend,
             }),
           });
+
           const data = await response.json();
           typingIndicator.classList.add("hidden");
 
           let botReplyToStore = "";
 
-          if(data.rating){
+          const { rating, output } = data;
+
+          if (rating === "null") {
             addRatingCard();
-            botReplyToStore = `RATING:${data.rating}`; // ⬅️ تخزين رقم التقييم فقط
+            botReplyToStore = "RATING:null";
+          } else if (rating === "booking") {
+            if (output) {
+              addMessage(output, "bot");
+            }
+            addRatingCard();
+            botReplyToStore = `RATING:booking`;
           } else {
-            addMessage(data.reply, "bot");
-            botReplyToStore = data.reply; // النص العادي
+            if (output) {
+            if (typeof output === "string") {
+              addMessage(output, "bot");
+              botReplyToStore = output;
+            } else if (typeof output === "object") {
+              addPersonInfo(output, "bot"); // 👈 بدل addMessage
+              botReplyToStore = JSON.stringify(output);
+            }
+
+            }
           }
 
-          addConversationPair(userMessage, botReplyToStore); // store full convo (with timestamp)
+          addConversationPair(userMessage, botReplyToStore);
+
         } catch (err) {
           typingIndicator.classList.add("hidden");
           addMessage("Error connecting to server.", "bot");

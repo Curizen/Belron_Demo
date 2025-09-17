@@ -91,56 +91,41 @@ exports.sendMessage = async (req, res) => {
 exports.analyzeMessage = async (req, res) => {
   const userMessage = req.body.message;
   let deviceId = req.cookies?.device_id;
+
   if (!deviceId) {
     deviceId = uuidv4();
     res.cookie('device_id', deviceId, {
       httpOnly: true,        
       secure: req.secure || req.get('x-forwarded-proto') === 'https', 
       sameSite: 'lax',
-      maxAge: 10 * 365 * 24 * 60 * 60 * 1000, // 10 سنوات
+      maxAge: 10 * 365 * 24 * 60 * 60 * 1000,
     });
-    console.log('Set new device_id cookie:', deviceId);
   }
 
   const userAgent = req.get('User-Agent') || null;
-  const clientIp = (req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').split(',')[0].trim().replace('::ffff:', '') || null;
+  const clientIp = (req.headers['x-forwarded-for'] || req.socket.remoteAddress || '')
+    .split(',')[0].trim().replace('::ffff:', '') || null;
 
   try {
     const n8nResponse = await axios.post(
       "https://curizen.app.n8n.cloud/webhook/40d45577-cd94-4ce8-9e23-8b65eec82b3a",
       {
-        id: deviceId,  
+        id: deviceId,
         query: userMessage,
-        meta: {
-          ip: clientIp,
-          userAgent
-        }
+        meta: { ip: clientIp, userAgent }
       }
     );
 
-    const data = n8nResponse?.data;
-    let reply;
-    let rating = null;
+    const data = n8nResponse?.data || {};
 
-
-    if (data.rating) {
-      rating = data.rating;
-    } else {
-      reply = data.output;
-    }
-    console.log(data);
-    console.log(reply);
-    console.log(rating);
-
+    console.log(data)
     return res.json({
-      type: "n8n",
-      reply,
-      rating,
-      deviceId
+      rating: data.rating || null,
+      output: data.output || data 
     });
 
   } catch (error) {
     console.error("Error forwarding to n8n:", error.message);
-    res.status(500).json({ reply: "Error while communicating with n8n." });
+    res.status(500).json({ rating: null, output: "Error while communicating with n8n." });
   }
 };

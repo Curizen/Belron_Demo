@@ -7,15 +7,12 @@ servicesContainer.querySelectorAll('.service-btn').forEach((button) => {
 				? `I want to know more about ${serviceName}`
 				: `Ich möchte mehr über ${serviceName} erfahren`;
 
-		// إضافة الرسالة للواجهة بنفس طريقة sendMessage
 		addMessage(userMessage, 'user');
 
-		// عرض مؤشر الكتابة
 		typingIndicator.classList.remove('hidden');
 		chatBox.appendChild(typingIndicator);
 		chatBox.scrollTop = chatBox.scrollHeight;
 
-		// إغلاق الشريط الجانبي
 		sidebar.classList.add('-translate-x-full');
 
 		try {

@@ -12,7 +12,7 @@ function createWelcomeMessage() {
 
 		const iconImg = document.createElement('img');
 		iconImg.className = 'w-8 h-auto';
-		iconImg.src = '/images/logo-chatbot.png'; // أيقونة ثابتة
+		iconImg.src = '/images/logo-chatbot.png'; 
 		iconImg.alt = 'icon';
 
 		iconDiv.appendChild(iconImg);

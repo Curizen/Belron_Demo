@@ -1,8 +1,8 @@
 function addRatingCard() {
 	const wrapper = document.createElement('div');
 	wrapper.innerHTML = `
-          <div class="flex items-center justify-center my-2 border border-gray-100">
-            <div class="bg-white flex flex-col items-center shadow-lg rounded-2xl p-6 w-full md:w-[90%] text-center rating-card">
+          <div class="flex items-center justify-center my-2">
+            <div class="bg-white flex flex-col items-center shadow-lg  p-6 w-full md:w-[90%] text-center rating-card">
                 <div class="flex flex-col">
                   <div class="flex items-center gap-0.5">
                     <div class="triangle-yellow"></div>

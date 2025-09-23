@@ -99,12 +99,9 @@ function generateTimes() {
 						? `Can I book an appointment on ${formattedDate} at ${time}?`
 						: `Kann ich einen Termin am ${formattedDate} um ${time} buchen?`;
 
-				// ✅ بدل ما تكرر الكود
-				// حط الرسالة في input واستعمل sendMessage()
 				messageInput.value = userMessage;
 				sendMessage();
 
-				// ✅ لو بدك تسكر السايدبار كمان
 				sidebar.classList.add('-translate-x-full');
 			});
 		}

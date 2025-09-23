@@ -58,13 +58,13 @@ function addMessage(data, from = 'user') {
 	let messageHTML = '';
 	if (from === 'user') {
 		messageHTML = `
-			<div class="bg-gradient-to-tl from-red-400 to-gray-400 text-white px-3.5 py-2.5 rounded-2xl border border-gray-300 max-w-[75%] text-[14px] leading-[1.5] ml-auto font-semibold shadow-xl relative">
+			<div class="bg-gradient-to-tl from-red-400 to-gray-400 text-white px-3.5 py-2.5 rounded-2xl border border-gray-300 max-w-[75%] text-[14px] leading-[1.5] ml-auto font-semibold relative">
 				${contentHTML}
 				<span class="text-[10px] text-[#f5f2ee]">${time}</span>
 			</div>`;
 	} else {
 		messageHTML = `
-			<div class="bg-[#e9ecef] text-gray-700 px-3.5 py-2.5 rounded-2xl border border-gray-300 max-w-[75%] text-[14px] leading-[1.5] font-semibold shadow-xl relative">
+			<div class="bg-[#e9ecef] text-gray-700 px-3.5 py-2.5 rounded-2xl border border-gray-300 max-w-[75%] text-[14px] leading-[1.5] font-semibold relative">
 				<div class="absolute -top-4 -left-4">
 					<img class="w-8 h-auto" src="/images/logo-chatbot.png" alt="">
 				</div>

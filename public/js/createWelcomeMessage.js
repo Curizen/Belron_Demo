@@ -5,7 +5,7 @@ function createWelcomeMessage() {
 	if (chatBox.children.length === 0) {
 		const messageDiv = document.createElement('div');
 		messageDiv.className =
-			'bg-[#e9ecef] text-gray-700 px-3.5 py-2.5 rounded-2xl border border-gray-300 max-w-[75%] text-[14px] leading-[1.5] font-semibold shadow-xl relative';
+			'bg-[#e9ecef] text-gray-700 px-3.5 py-2.5 rounded-2xl border border-gray-300 max-w-[75%] text-[14px] leading-[1.5] font-semibold relative';
 
 		const iconDiv = document.createElement('div');
 		iconDiv.className = 'absolute -top-4 -left-4';

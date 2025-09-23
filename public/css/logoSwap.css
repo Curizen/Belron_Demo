@@ -1,0 +1,41 @@
+.perspective-1000 {
+	perspective: 1000px;
+}
+
+.flip-card-inner {
+	width: 100%;
+	height: 100%;
+	transform-style: preserve-3d;
+	animation: flip-coin 8s infinite linear; /* دورة كاملة بعد زيادة الوقت */
+}
+
+.flip-card-front,
+.flip-card-back {
+	backface-visibility: hidden;
+}
+
+.flip-card-back {
+	transform: rotateY(180deg);
+}
+
+@keyframes flip-coin {
+	0% {
+		transform: rotateY(0deg); /* الوجه الأول ظاهر */
+	}
+	37.5% {
+		/* 3s من أصل 8s */
+		transform: rotateY(0deg); /* ثابت الوجه الأول */
+	}
+	50% {
+		/* 4s: دوران سريع */
+		transform: rotateY(180deg);
+	}
+	87.5% {
+		/* 7s: الوجه الثاني ثابت */
+		transform: rotateY(180deg);
+	}
+	100% {
+		/* 8s: دوران سريع العودة للوجه الأول */
+		transform: rotateY(360deg);
+	}
+}

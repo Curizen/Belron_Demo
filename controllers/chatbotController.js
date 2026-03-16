@@ -73,9 +73,6 @@ exports.sendMessage = async (req, res) => {
       }
     );
 
-    console.log("n8n response:", n8nResponse.data);
-    console.log("User message:", userMessage);
-    console.log("Language:", id);
     const reply =
       n8nResponse?.data?.output || n8nResponse?.data?.message?.content || "No content found";
 
@@ -107,7 +104,7 @@ exports.analyzeMessage = async (req, res) => {
 
   const userAgent = req.get('User-Agent') || null;
   const clientIp = (req.headers['x-forwarded-for'] || req.socket.remoteAddress || '')
-    .split(',')[0].trim().replace('::ffff:', '') || null;
+  .split(',')[0].trim().replace('::ffff:', '') || null;
 
   try {
     const n8nResponse = await axios.post(
@@ -118,9 +115,6 @@ exports.analyzeMessage = async (req, res) => {
       }
     );
 
-    console.log("Device ID:", deviceId);
-    console.log("User Agent:", userMessage);
-    console.log("n8n response:", n8nResponse.data);
     const data = n8nResponse?.data || {};
 
     console.log(data)

@@ -66,13 +66,16 @@ exports.sendMessage = async (req, res) => {
 
   try {
     const n8nResponse = await axios.post(
-      "https://curizen.app.n8n.cloud/webhook/Chatbot",
+      "https://curizen.app.n8n.cloud/webhook/40d45577-cd94-4ce8-9e23-8b65eec82b3a",
       {
         query: userMessage,
         id: userId,
       }
     );
 
+    console.log("n8n response:", n8nResponse.data);
+    console.log("User message:", userMessage);
+    console.log("Language:", id);
     const reply =
       n8nResponse?.data?.output || n8nResponse?.data?.message?.content || "No content found";
 
@@ -108,14 +111,16 @@ exports.analyzeMessage = async (req, res) => {
 
   try {
     const n8nResponse = await axios.post(
-      "https://curizen.app.n8n.cloud/webhook/Chatbot",
+      "https://curizen.app.n8n.cloud/webhook/40d45577-cd94-4ce8-9e23-8b65eec82b3a",
       {
         id: deviceId,
-        query: userMessage,
-        meta: { ip: clientIp, userAgent }
+        query: userMessage
       }
     );
 
+    console.log("Device ID:", deviceId);
+    console.log("User Agent:", userMessage);
+    console.log("n8n response:", n8nResponse.data);
     const data = n8nResponse?.data || {};
 
     console.log(data)
